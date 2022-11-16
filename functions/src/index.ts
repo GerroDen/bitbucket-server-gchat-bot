@@ -6,10 +6,19 @@ import {
 } from "googleapis"
 import { bitbucketEventSchema } from "./bitbucket-events-schema"
 import { BitbucketEvent } from "./bitbucket-events"
+import {
+    signatureHeader,
+    verifyBitbucketRequest,
+} from "./verify-bitbucket-request"
 
 const spaceId = "AAAAM8DCe1U"
 
 export const bitbucketToGChat = region(config.region).https.onRequest(async (req, res): Promise<void> => {
+    if (verifyBitbucketRequest(req)) {
+        console.debug(`invalid signature: ${req.header(signatureHeader)}`)
+        res.sendStatus(403)
+        return
+    }
     try {
         const event: BitbucketEvent = bitbucketEventSchema.parse(req.body)
         if ("test" in event) {
