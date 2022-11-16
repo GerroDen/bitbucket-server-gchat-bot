@@ -60,7 +60,7 @@ export const approvalStateSchema = z.union([
   z.literal("APPROVED"),
   z.literal("UNAPPROVED"),
   z.literal("NEEDS_WORK"),
-  z.boolean(),
+  z.string(),
 ]);
 
 export const participantRoleSchema = z.union([
@@ -167,11 +167,15 @@ export const pullRequestDeletedEventSchema = basePullRequestEventSchema.extend({
   eventKey: z.literal("pr:deleted"),
 });
 
-export const bitbucketEventSchema = z.union([
-  textEventSchema,
+export const pullRequestEventSchema = z.union([
   pullRequestApprovalEventSchema,
   pullRequestDeletedEventSchema,
   pullRequestMergedEventSchema,
   pullRequestReviewersUpdatedEventSchema,
   pullRequestModifiedEventSchema,
+]);
+
+export const bitbucketEventSchema = z.union([
+  textEventSchema,
+  pullRequestEventSchema,
 ]);

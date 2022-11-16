@@ -62,7 +62,7 @@ export type ApprovalState =
     "APPROVED"
     | "UNAPPROVED"
     | "NEEDS_WORK"
-    | boolean
+    | string
 
 export type ParticipantRole =
     "AUTHOR"
@@ -147,10 +147,14 @@ export interface TextEvent {
     test: true
 }
 
-export type BitbucketEvent =
-    TextEvent
-    | PullRequestApprovalEvent
+export type PullRequestEvent =
+    PullRequestApprovalEvent
     | PullRequestDeletedEvent
     | PullRequestMergedEvent
     | PullRequestReviewersUpdatedEvent
     | PullRequestModifiedEvent
+
+export type BitbucketEvent =
+    TextEvent
+    | PullRequestEvent
+
