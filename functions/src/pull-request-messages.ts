@@ -21,7 +21,8 @@ export async function createOrUpdateMessage({ spaceId, prId, message }: CreateOr
     const chat = google.chat("v1")
     const exists = await chat.spaces.messages.get({ name: messageName }).then(() => true).catch(() => false)
     if (exists) {
-        await chat.spaces.messages.update({ name: messageName, requestBody: message, updateMask: "text" })
+        const updateMask = ("cardsV2" in message) ? "cardsV2" : "text"
+        await chat.spaces.messages.update({ name: messageName, requestBody: message, updateMask })
         console.debug(`updated message for PR #${prId}`)
     } else {
         await chat.spaces.messages.create({ parent, messageId, requestBody: message })
