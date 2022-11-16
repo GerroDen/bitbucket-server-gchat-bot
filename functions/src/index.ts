@@ -1,6 +1,5 @@
 import { region } from "firebase-functions"
 import * as config from "./config"
-import { chat_v1 } from "googleapis"
 import { bitbucketEventSchema } from "./bitbucket-events-schema"
 import { BitbucketEvent } from "./bitbucket-events"
 import {
@@ -8,7 +7,10 @@ import {
     verifyBitbucketRequest,
 } from "./verify-bitbucket-request"
 import { initializeApp } from "firebase-admin/app"
-import { createOrUpdateMessage } from "./pull-request-messages"
+import {
+    createOrUpdateMessage,
+    deleteMessage,
+} from "./pull-request-messages"
 
 initializeApp()
 const spaceId = "AAAAM8DCe1U"
@@ -26,13 +28,19 @@ export const bitbucketToGChat = region(config.region).https.onRequest(async (req
         return
     }
     const prId = event.pullRequest.id
-    const message: chat_v1.Schema$Message = {
-        text: `PR #${prId}: ${event.pullRequest.title}`,
+    if (event.pullRequest.reviewers.length === 0) {
+        await deleteMessage({ spaceId, event })
+        console.debug(`PR #${prId} is not public for review yet`)
+        return
+    }
+    if (event.eventKey === "pr:deleted") {
+        await deleteMessage({ spaceId, event })
+        console.error("deletion not implemented yet")
+        return
     }
     await createOrUpdateMessage({
-        prId,
+        event,
         spaceId,
-        message,
     })
     res.send()
 })
