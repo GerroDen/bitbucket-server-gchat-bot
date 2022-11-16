@@ -109,7 +109,7 @@ export const mergeTargetSchema = z.object({
   latestChangeset: z.string(),
 });
 
-export const textEventSchema = z.object({
+export const testEventSchema = z.object({
   test: z.literal(true),
 });
 
@@ -176,6 +176,6 @@ export const pullRequestEventSchema = z.union([
 ]);
 
 export const bitbucketEventSchema = z.union([
-  textEventSchema,
+  testEventSchema,
   pullRequestEventSchema,
 ]);
