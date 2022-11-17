@@ -13,7 +13,6 @@ import {
 } from "./pull-request-messages"
 
 initializeApp()
-const spaceId = "AAAAM8DCe1U"
 
 export const bitbucketToGChat = region(config.region).https.onRequest(async (req, res): Promise<void> => {
     if (verifyBitbucketRequest(req)) {
@@ -29,18 +28,15 @@ export const bitbucketToGChat = region(config.region).https.onRequest(async (req
     }
     const prId = event.pullRequest.id
     if (event.pullRequest.reviewers.length === 0) {
-        await deleteMessage({ spaceId, event })
+        await deleteMessage(event)
         console.debug(`PR #${prId} is not public for review yet`)
         return
     }
     if (event.eventKey === "pr:deleted") {
-        await deleteMessage({ spaceId, event })
+        await deleteMessage(event)
         console.error("deletion not implemented yet")
         return
     }
-    await createOrUpdateMessage({
-        event,
-        spaceId,
-    })
+    await createOrUpdateMessage(event)
     res.send()
 })

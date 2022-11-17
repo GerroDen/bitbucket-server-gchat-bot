@@ -6,12 +6,10 @@ import {
     ApprovalState,
     PullRequestEvent,
 } from "./bitbucket-events"
-import { bitbucketBaseUrl } from "./config"
-
-interface MessageParams {
-    spaceId: string
-    event: PullRequestEvent
-}
+import {
+    bitbucketBaseUrl,
+    spaceId,
+} from "./config"
 
 async function createChatClient(): Promise<chat_v1.Chat> {
     const auth = new google.auth.GoogleAuth({
@@ -22,8 +20,8 @@ async function createChatClient(): Promise<chat_v1.Chat> {
     return google.chat("v1")
 }
 
-export async function deleteMessage({ spaceId, event }: MessageParams): Promise<void> {
-    const { prId, messageName } = buildIds({ spaceId, event })
+export async function deleteMessage(event: PullRequestEvent): Promise<void> {
+    const { prId, messageName } = buildIds(event)
     const chat = await createChatClient()
     try {
         await chat.spaces.messages.delete({ name: messageName })
@@ -32,8 +30,8 @@ export async function deleteMessage({ spaceId, event }: MessageParams): Promise<
     }
 }
 
-export async function createOrUpdateMessage({ spaceId, event }: MessageParams): Promise<void> {
-    const { prId, parent, messageId, messageName } = buildIds({ spaceId, event })
+export async function createOrUpdateMessage(event: PullRequestEvent): Promise<void> {
+    const { prId, parent, messageId, messageName } = buildIds(event)
     const message = buildMessage(event)
     const chat = await createChatClient()
     const exists = await chat.spaces.messages.get({ name: messageName }).then(() => true).catch(() => false)
@@ -54,7 +52,7 @@ interface MessageIds {
     messageName: string;
 }
 
-function buildIds({ spaceId, event }: MessageParams): MessageIds {
+function buildIds(event: PullRequestEvent): MessageIds {
     const prId = event.pullRequest.id
     const parent = `spaces/${spaceId}`
     const messageId = `client-pr-${event.pullRequest.id}`
