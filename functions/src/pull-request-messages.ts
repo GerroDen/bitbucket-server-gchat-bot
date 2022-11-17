@@ -8,6 +8,7 @@ import {
 } from "./bitbucket-events"
 import {
     bitbucketBaseUrl,
+    firebaseProjectId,
     spaceId,
 } from "./config"
 
@@ -65,10 +66,11 @@ function buildIds(event: PullRequestEvent): MessageIds {
     }
 }
 
+const storagePublicBaseUrl = `https://storage.googleapis.com/${firebaseProjectId}.appspot.com`
 const approveIcons: Record<ApprovalState, string> = {
-    APPROVED: "https://storage.googleapis.com/bitbucket-server-gchat-bot.appspot.com/approved.png",
-    NEEDS_WORK: "https://storage.googleapis.com/bitbucket-server-gchat-bot.appspot.com/needswork.png",
-    UNAPPROVED: "https://storage.googleapis.com/bitbucket-server-gchat-bot.appspot.com/unapproved.png",
+    APPROVED: `${storagePublicBaseUrl}/approved.png`,
+    NEEDS_WORK: `${storagePublicBaseUrl}/needswork.png`,
+    UNAPPROVED: `${storagePublicBaseUrl}/unapproved.png`,
 }
 
 function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
