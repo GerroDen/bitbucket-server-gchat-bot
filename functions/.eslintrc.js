@@ -30,4 +30,7 @@ module.exports = {
 			node: true,
 		},
 	},
+	rules: {
+		"@typescript-eslint/explicit-function-return-type": "error",
+	},
 }

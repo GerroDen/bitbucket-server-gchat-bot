@@ -13,7 +13,7 @@ interface MessageParams {
     event: PullRequestEvent
 }
 
-async function createChatClient() {
+async function createChatClient(): Promise<chat_v1.Chat> {
     const auth = new google.auth.GoogleAuth({
         scopes: ["https://www.googleapis.com/auth/chat.bot"],
     })
@@ -22,7 +22,7 @@ async function createChatClient() {
     return google.chat("v1")
 }
 
-export async function deleteMessage({ spaceId, event }: MessageParams) {
+export async function deleteMessage({ spaceId, event }: MessageParams): Promise<void> {
     const { prId, messageName } = buildIds({ spaceId, event })
     const chat = await createChatClient()
     try {
@@ -32,7 +32,7 @@ export async function deleteMessage({ spaceId, event }: MessageParams) {
     }
 }
 
-export async function createOrUpdateMessage({ spaceId, event }: MessageParams) {
+export async function createOrUpdateMessage({ spaceId, event }: MessageParams): Promise<void> {
     const { prId, parent, messageId, messageName } = buildIds({ spaceId, event })
     const message = buildMessage(event)
     const chat = await createChatClient()
@@ -47,7 +47,14 @@ export async function createOrUpdateMessage({ spaceId, event }: MessageParams) {
     }
 }
 
-function buildIds({ spaceId, event }: MessageParams) {
+interface MessageIds {
+    prId: number;
+    parent: string;
+    messageId: string
+    messageName: string;
+}
+
+function buildIds({ spaceId, event }: MessageParams): MessageIds {
     const prId = event.pullRequest.id
     const parent = `spaces/${spaceId}`
     const messageId = `client-pr-${event.pullRequest.id}`
