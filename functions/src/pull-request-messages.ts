@@ -6,6 +6,7 @@ import {
     ApprovalState,
     PullRequestEvent,
 } from "./bitbucket-events"
+import { bitbucketBaseUrl } from "./config"
 
 interface MessageParams {
     spaceId: string
@@ -60,37 +61,61 @@ function buildIds({ spaceId, event }: MessageParams) {
 }
 
 const approveIcons: Record<ApprovalState, string> = {
-    APPROVED: "✅",
-    NEEDS_WORK: "❌",
-    UNAPPROVED: "❔",
+    APPROVED: "https://storage.googleapis.com/bitbucket-server-gchat-bot.appspot.com/approved.png",
+    NEEDS_WORK: "https://storage.googleapis.com/bitbucket-server-gchat-bot.appspot.com/needswork.png",
+    UNAPPROVED: "https://storage.googleapis.com/bitbucket-server-gchat-bot.appspot.com/unapproved.png",
 }
 
 function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
     const prId = event.pullRequest.id
     const approvedCount = event.pullRequest.reviewers.filter(reviewer => reviewer.status === "APPROVED").length
     const needsWorkCount = event.pullRequest.reviewers.filter(reviewer => reviewer.status === "NEEDS_WORK").length
-    const text = event.pullRequest.reviewers.map((reviewer) => `${approveIcons[reviewer.status]} ${reviewer.user.displayName}`).join("<br>")
-    const url = `https://bitbucket.apps.seibert-media.net/projects/${event.pullRequest.toRef.repository.project.key}/repos/${event.pullRequest.toRef.repository.slug}/pull-requests/${prId}`
+    const url = `${bitbucketBaseUrl}/projects/${event.pullRequest.toRef.repository.project.key}/repos/${event.pullRequest.toRef.repository.slug}/pull-requests/${prId}`
     return {
         cardsV2: [
             {
                 cardId: "pr",
                 card: {
                     header: {
-                        title: `${event.pullRequest.title}`,
-                        subtitle: `PR #${prId} | ${approvedCount} ✅ - ${needsWorkCount} ❌ | (${event.pullRequest.state})`,
+                        title: event.pullRequest.title,
+                        subtitle: `PR #${prId} | (${event.pullRequest.state})`,
                     },
                     sections: [
                         {
-                            collapsible: true,
-                            header: "Reviewers",
                             widgets: [
                                 {
                                     decoratedText: {
-                                        text,
+                                        startIcon: {
+                                            altText: "approved",
+                                            iconUrl: approveIcons.APPROVED,
+                                        },
+                                        topLabel: "approved",
+                                        text: `${approvedCount}`,
+                                    },
+                                },
+                                {
+                                    decoratedText: {
+                                        startIcon: {
+                                            altText: "needs work",
+                                            iconUrl: approveIcons.NEEDS_WORK,
+                                        },
+                                        topLabel: "needs work",
+                                        text: `${needsWorkCount}`,
                                     },
                                 },
                             ],
+                        },
+                        {
+                            collapsible: true,
+                            header: "Reviewers",
+                            widgets: event.pullRequest.reviewers.map((reviewer) => ({
+                                decoratedText: {
+                                    startIcon: {
+                                        iconUrl: approveIcons[reviewer.status],
+                                    },
+                                    text: reviewer.user.displayName,
+                                },
+                            })),
                         },
                         {
                             widgets: [
