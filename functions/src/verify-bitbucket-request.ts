@@ -2,7 +2,7 @@ import { createHmac } from "crypto"
 import { defineString } from "firebase-functions/params"
 import { Request } from "firebase-functions/lib/common/providers/https"
 
-const HOOK_SECRET = defineString("HOOK_SECRET", {
+const BITBUCKET_SECRET = defineString("BITBUCKET_SECRET", {
     label: "Secret used in Bitbucket Hook",
     description: "Insert a randomly generated secret for request validation. See https://confluence.atlassian.com/bitbucketserver084/manage-webhooks-1167707976.html#Managewebhooks-Securingyourwebhook",
 })
@@ -15,7 +15,7 @@ export function verifyBitbucketRequest(req: Request): boolean {
     if (!requestSignature || !requestSignature?.startsWith(signatureHeaderPrefix)) {
         return false
     }
-    const hmac = createHmac("sha256", HOOK_SECRET.value())
+    const hmac = createHmac("sha256", BITBUCKET_SECRET.value())
     hmac.update(req.rawBody)
     const payloadDigest = hmac.digest("hex")
     return (signatureHeaderPrefix + payloadDigest !== requestSignature)
