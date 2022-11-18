@@ -11,6 +11,10 @@ import {
     createOrUpdateMessage,
     deleteMessage,
 } from "./pull-request-messages"
+import { ProjectApi } from "./bitbucket-api"
+import { z } from "zod"
+import { chat_v1 } from "googleapis"
+import { verifyGChatBearerToken } from "./verify-gchat-bearer-token"
 
 initializeApp()
 
@@ -39,4 +43,52 @@ export const bitbucketToGChat = region(config.region).https.onRequest(async (req
     }
     await createOrUpdateMessage(event)
     res.send()
+})
+
+export const gchatBot = region(config.region).https.onRequest(async (req, res): Promise<void> => {
+    const tokenVerified = await verifyGChatBearerToken(req)
+    if (!tokenVerified) {
+        res.sendStatus(401)
+        return
+    }
+    const chatEvent = req.body as chat_v1.Schema$DeprecatedEvent
+    if (chatEvent.type === "ADDED_TO_SPACE") {
+        const reply: chat_v1.Schema$Message = {
+            text: "Hi, you called me?",
+        }
+        res.send(reply)
+        return
+    }
+    if (chatEvent.type !== "MESSAGE") {
+        res.send()
+        return
+    }
+    const payloadParseResult = registerPayloadSchema.safeParse(chatEvent.message)
+    if (!payloadParseResult.success) {
+        const reply: chat_v1.Schema$Message = {
+            text: "I need a projectKey and repositorySlug",
+        }
+        res.send(reply)
+        return
+    }
+    const { projectKey, repositorySlug } = payloadParseResult.data
+    try {
+        const repository = await new ProjectApi().getRepository({ projectKey, repositorySlug })
+        const reply: chat_v1.Schema$Message = {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            text: `I will now report pull requests from ${repository.project.name}: ${repository.name} here`,
+        }
+        res.send(reply)
+    } catch (e) {
+        const reply: chat_v1.Schema$Message = {
+            text: `I cannot find an repository ${repositorySlug} within project ${projectKey}`,
+        }
+        res.send(reply)
+    }
+})
+
+const registerPayloadSchema = z.object({
+    projectKey: z.string(),
+    repositorySlug: z.string(),
 })
