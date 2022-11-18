@@ -13,7 +13,7 @@ import {
 } from "./pull-request-messages"
 import { ProjectApi } from "./bitbucket-api"
 import { z } from "zod"
-import { chat_v1 } from "googleapis"
+import { chat_v1 } from "@googleapis/chat"
 import { verifyGChatBearerToken } from "./verify-gchat-bearer-token"
 
 initializeApp()

@@ -1,7 +1,8 @@
 import {
+    auth,
+    chat,
     chat_v1,
-    google,
-} from "googleapis"
+} from "@googleapis/chat"
 import {
     ApprovalState,
     PullRequestEvent,
@@ -13,12 +14,14 @@ import {
 } from "./config"
 
 async function createChatClient(): Promise<chat_v1.Chat> {
-    const auth = new google.auth.GoogleAuth({
+    const googleAuth = new auth.GoogleAuth({
         scopes: ["https://www.googleapis.com/auth/chat.bot"],
     })
-    const authClient = await auth.getClient()
-    google.options({ auth: authClient })
-    return google.chat("v1")
+    const authClient = await googleAuth.getClient()
+    return chat({
+        version: "v1",
+        auth: authClient,
+    })
 }
 
 export async function deleteMessage(event: PullRequestEvent): Promise<void> {
