@@ -21,7 +21,6 @@ const jwksClient = JwksClient({ jwksUri })
 
 // @see https://developers.google.com/chat/how-tos/bots-develop
 export async function verifyGChatBearerToken(req: Request): Promise<boolean> {
-    console.log(req.headers)
     const authorizationHeader = req.header("Authorization")
     if (!authorizationHeader?.startsWith(bearerPrefix)) {
         return false
