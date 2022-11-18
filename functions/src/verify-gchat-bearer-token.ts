@@ -3,12 +3,15 @@ import {
     logger,
     Request,
 } from "firebase-functions"
-import { verify } from "jsonwebtoken"
+import {
+    decode,
+    verify,
+} from "jsonwebtoken"
 import {
     chatIssuer,
     jwksUri,
 } from "./config"
-import { defineString } from "firebase-functions/lib/params"
+import { defineString } from "firebase-functions/params"
 
 const chatbotProjectId = defineString("CHATBOT_PROJECT_ID")
 const issuer = chatIssuer
@@ -18,14 +21,21 @@ const jwksClient = JwksClient({ jwksUri })
 
 // @see https://developers.google.com/chat/how-tos/bots-develop
 export async function verifyGChatBearerToken(req: Request): Promise<boolean> {
+    console.log(req.headers)
     const authorizationHeader = req.header("Authorization")
     if (!authorizationHeader?.startsWith(bearerPrefix)) {
         return false
     }
     const token = authorizationHeader?.substring(bearerPrefix.length)
+    const decodedToken = decode(token, { complete: true })
+    if (!decodedToken?.header.kid) {
+        console.error("unable to decode KID from JWT header")
+        return false
+    }
     try {
-        const key = await jwksClient.getSigningKey(req.header("kid"))
-        await verify(token, key.getPublicKey(), {
+        const key = await jwksClient.getSigningKey(decodedToken?.header.kid)
+        const publicKey = key.getPublicKey()
+        await verify(token, publicKey, {
             audience: chatbotProjectId.value(),
             issuer,
         })
