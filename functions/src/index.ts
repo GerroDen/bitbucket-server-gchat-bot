@@ -11,10 +11,9 @@ import {
     createOrUpdateMessage,
     deleteMessage,
 } from "./pull-request-messages"
-import { ProjectApi } from "./bitbucket-api"
-import { z } from "zod"
 import { chat_v1 } from "@googleapis/chat"
 import { verifyGChatBearerToken } from "./verify-gchat-bearer-token"
+import { ProjectApi } from "./bitbucket-api"
 
 initializeApp()
 
@@ -38,7 +37,7 @@ export const bitbucketToGChat = region(config.region).https.onRequest(async (req
     }
     if (event.eventKey === "pr:deleted") {
         await deleteMessage(event)
-        console.error("deletion not implemented yet")
+        console.debug(`PR #${prId} was deleted and removed message`)
         return
     }
     await createOrUpdateMessage(event)
@@ -52,43 +51,33 @@ export const gchatBot = region(config.region).https.onRequest(async (req, res): 
         return
     }
     const chatEvent = req.body as chat_v1.Schema$DeprecatedEvent
-    if (chatEvent.type === "ADDED_TO_SPACE") {
+    console.debug(`received message type ${chatEvent.type}`)
+    const match = /^\s*(@.+)\s+(\w+)\s+(\w+)\s*$/u.exec(chatEvent.message?.text ?? "")
+    if (chatEvent.type === "ADDED_TO_SPACE" || (chatEvent.type === "MESSAGE" && !match)) {
         const reply: chat_v1.Schema$Message = {
-            text: "Hi, you called me?",
+            text: "Hi, you called me?<br>Give me a `<projectKey> <repositorySlug>` to add.",
         }
         res.send(reply)
         return
     }
-    if (chatEvent.type !== "MESSAGE") {
-        res.send()
-        return
-    }
-    const payloadParseResult = registerPayloadSchema.safeParse(chatEvent.message)
-    if (!payloadParseResult.success) {
-        const reply: chat_v1.Schema$Message = {
-            text: "I need a projectKey and repositorySlug",
+    if (chatEvent.type === "MESSAGE" && match) {
+        const [, , projectKey, repositorySlug] = match
+        try {
+            const repository = await new ProjectApi().getRepository({ projectKey, repositorySlug })
+            const reply: chat_v1.Schema$Message = {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                text: `I will now report pull requests from ${repository.project.name}: ${repository.name} here`,
+            }
+            res.send(reply)
+            return
+        } catch (e) {
+            const reply: chat_v1.Schema$Message = {
+                text: `I cannot find an repository ${repositorySlug} within project ${projectKey}`,
+            }
+            res.send(reply)
+            return
         }
-        res.send(reply)
-        return
     }
-    const { projectKey, repositorySlug } = payloadParseResult.data
-    try {
-        const repository = await new ProjectApi().getRepository({ projectKey, repositorySlug })
-        const reply: chat_v1.Schema$Message = {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            text: `I will now report pull requests from ${repository.project.name}: ${repository.name} here`,
-        }
-        res.send(reply)
-    } catch (e) {
-        const reply: chat_v1.Schema$Message = {
-            text: `I cannot find an repository ${repositorySlug} within project ${projectKey}`,
-        }
-        res.send(reply)
-    }
-})
-
-const registerPayloadSchema = z.object({
-    projectKey: z.string(),
-    repositorySlug: z.string(),
+    res.send()
 })
