@@ -13,5 +13,5 @@ export function verifyBitbucketRequest(req: Request): boolean {
     const hmac = createHmac("sha256", bitbucketSecret.value())
     hmac.update(req.rawBody)
     const payloadDigest = hmac.digest("hex")
-    return (signatureHeaderPrefix + payloadDigest !== requestSignature)
+    return (signatureHeaderPrefix + payloadDigest === requestSignature)
 }

@@ -29,7 +29,7 @@ import {
 initializeApp()
 
 export const bitbucketToGChat = region(config.region).https.onRequest(async (req, res): Promise<void> => {
-    if (verifyBitbucketRequest(req)) {
+    if (!verifyBitbucketRequest(req)) {
         console.debug(`invalid signature: ${req.header(signatureHeader)}`)
         res.sendStatus(403)
         return
