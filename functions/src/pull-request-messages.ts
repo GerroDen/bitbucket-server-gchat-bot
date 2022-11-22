@@ -11,8 +11,8 @@ import {
 import {
     bitbucketBaseUrl,
     firebaseProjectId,
-    spaceId,
 } from "./config"
+import { findRepositoryData } from "./store"
 
 async function createChatClient(): Promise<chat_v1.Chat> {
     const googleAuth = new auth.GoogleAuth({
@@ -26,7 +26,12 @@ async function createChatClient(): Promise<chat_v1.Chat> {
 }
 
 export async function deleteMessage(event: PullRequestEvent): Promise<void> {
-    const { prId, messageName } = buildIds(event)
+    const ids = await buildIds(event)
+    if (!ids) {
+        console.debug(`Skipping event`)
+        return
+    }
+    const { prId, messageName } = ids
     const chat = await createChatClient()
     try {
         await chat.spaces.messages.delete({ name: messageName })
@@ -36,7 +41,12 @@ export async function deleteMessage(event: PullRequestEvent): Promise<void> {
 }
 
 export async function createOrUpdateMessage(event: PullRequestEvent): Promise<void> {
-    const { prId, parent, messageId, messageName } = buildIds(event)
+    const ids = await buildIds(event)
+    if (!ids) {
+        console.debug(`Skipping event`)
+        return
+    }
+    const { prId, parent, messageId, messageName } = ids
     const message = buildMessage(event)
     const chat = await createChatClient()
     const exists = await chat.spaces.messages.get({ name: messageName }).then(() => true).catch(() => false)
@@ -57,9 +67,15 @@ interface MessageIds {
     messageName: string;
 }
 
-function buildIds(event: PullRequestEvent): MessageIds {
+async function buildIds(event: PullRequestEvent): Promise<MessageIds | undefined> {
+    const projectKey = event.pullRequest.fromRef.repository.project.key
+    const repositorySlug = event.pullRequest.fromRef.repository.slug
+    const repositoryData = await findRepositoryData({ projectKey, repositorySlug })
+    if (!repositoryData?.spaceName) {
+        return undefined
+    }
     const prId = event.pullRequest.id
-    const parent = `spaces/${spaceId}`
+    const parent = repositoryData.spaceName
     const messageId = `client-pr-${event.pullRequest.id}`
     const messageName = `${parent}/messages/${messageId}`
     return {

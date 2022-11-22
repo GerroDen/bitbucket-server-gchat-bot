@@ -13,7 +13,18 @@ import {
 } from "./pull-request-messages"
 import { chat_v1 } from "@googleapis/chat"
 import { verifyGChatBearerToken } from "./verify-gchat-bearer-token"
-import { ProjectApi } from "./bitbucket-api"
+import { addRepositoryDataIfMissing } from "./store"
+import {
+    added,
+    help,
+    missingArguments,
+    missingSpaceName,
+    unknownCommand,
+} from "./chat-replies"
+import {
+    addCommandArgsSplit,
+    commandPattern,
+} from "./chat-commands"
 
 initializeApp()
 
@@ -52,32 +63,30 @@ export const gchatBot = region(config.region).https.onRequest(async (req, res): 
     }
     const chatEvent = req.body as chat_v1.Schema$DeprecatedEvent
     console.debug(`received message type ${chatEvent.type}`)
-    const match = /^\s*(@.+)\s+(\w+)\s+(\w+)\s*$/u.exec(chatEvent.message?.text ?? "")
-    if (chatEvent.type === "ADDED_TO_SPACE" || (chatEvent.type === "MESSAGE" && !match)) {
-        const reply: chat_v1.Schema$Message = {
-            text: "Hi, you called me?<br>Give me a `<projectKey> <repositorySlug>` to add.",
-        }
-        res.send(reply)
-        return
-    }
-    if (chatEvent.type === "MESSAGE" && match) {
-        const [, , projectKey, repositorySlug] = match
-        try {
-            const repository = await new ProjectApi().getRepository({ projectKey, repositorySlug })
-            const reply: chat_v1.Schema$Message = {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                text: `I will now report pull requests from ${repository.project.name}: ${repository.name} here`,
+    if (chatEvent.type === "MESSAGE") {
+        const commandMatch = commandPattern.exec(chatEvent.message?.text ?? "")
+        if (commandMatch) {
+            const [, , command, argsString] = commandMatch
+            if (command === "/add") {
+                const { projectKey, repositorySlug } = addCommandArgsSplit(argsString)
+                if (!projectKey || !repositorySlug) {
+                    console.debug(`/add: missing projectKey or repositorySlug in "${argsString}"`)
+                    res.send(missingArguments(command))
+                    return
+                }
+                const spaceName = chatEvent.space?.name
+                if (!spaceName) {
+                    console.warn("/add: missing space name in event")
+                    res.send(missingSpaceName())
+                    return
+                }
+                await addRepositoryDataIfMissing({ projectKey, repositorySlug, spaceName })
+                res.send(added({ projectKey, repositorySlug }))
+                return
             }
-            res.send(reply)
-            return
-        } catch (e) {
-            const reply: chat_v1.Schema$Message = {
-                text: `I cannot find an repository ${repositorySlug} within project ${projectKey}`,
-            }
-            res.send(reply)
+            res.send(unknownCommand(command))
             return
         }
     }
-    res.send()
+    res.send(help())
 })
