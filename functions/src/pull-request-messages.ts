@@ -6,6 +6,7 @@ import {
 import {
     ApprovalState,
     PullRequestEvent,
+    PullRequestState,
 } from "./bitbucket-events"
 import {
     bitbucketBaseUrl,
@@ -69,11 +70,16 @@ function buildIds(event: PullRequestEvent): MessageIds {
     }
 }
 
-const storagePublicBaseUrl = `https://storage.googleapis.com/${firebaseProjectId}.appspot.com`
+const publicBaseUrl = `https://${firebaseProjectId}.web.app`
 const approveIcons: Record<ApprovalState, string> = {
-    APPROVED: `${storagePublicBaseUrl}/approved.png`,
-    NEEDS_WORK: `${storagePublicBaseUrl}/needswork.png`,
-    UNAPPROVED: `${storagePublicBaseUrl}/unapproved.png`,
+    APPROVED: `${publicBaseUrl}/review/approved.png`,
+    NEEDS_WORK: `${publicBaseUrl}/review/needswork.png`,
+    UNAPPROVED: `${publicBaseUrl}/review/unapproved.png`,
+}
+const pullRequestIcons: Record<PullRequestState, string> = {
+    OPEN: `${publicBaseUrl}/pull-request/open.png`,
+    MERGED: `${publicBaseUrl}/pull-request/merged.png`,
+    DECLINED: `${publicBaseUrl}/pull-request/declined.png`,
 }
 
 function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
@@ -88,7 +94,9 @@ function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
                 card: {
                     header: {
                         title: event.pullRequest.title,
-                        subtitle: `PR #${prId} | (${event.pullRequest.state})`,
+                        subtitle: `PR #${prId}`,
+                        imageUrl: pullRequestIcons[event.pullRequest.state],
+                        imageAltText: event.pullRequest.state,
                     },
                     sections: [
                         {

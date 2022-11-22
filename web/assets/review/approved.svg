@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="16" height="16">
+	<mask id="mask">
+		<rect fill="white" width="20" height="20"/>
+		<path fill="black" d="M14.335 8.848l-.005.005-4.444 4.444a1.411 1.411 0 01-1.995 0l-2.223-2.223A1.41 1.41 0 117.663 9.08l1.226 1.224 3.446-3.446a1.411 1.411 0 012 1.99z"/>
+	</mask>
+	<circle fill="#36B37E" cx="10" cy="10" r="10" mask="url(#mask)"/>
+</svg>
