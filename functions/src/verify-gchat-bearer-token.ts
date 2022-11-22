@@ -8,12 +8,11 @@ import {
     verify,
 } from "jsonwebtoken"
 import {
+    chatbotProjectId,
     chatIssuer,
     jwksUri,
 } from "./config"
-import { defineString } from "firebase-functions/params"
 
-const chatbotProjectId = defineString("CHATBOT_PROJECT_ID")
 const issuer = chatIssuer
 const bearerPrefix = "Bearer "
 

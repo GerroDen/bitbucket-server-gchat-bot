@@ -70,23 +70,23 @@ function buildIds(event: PullRequestEvent): MessageIds {
     }
 }
 
-const publicBaseUrl = `https://${firebaseProjectId}.web.app`
-const approveIcons: Record<ApprovalState, string> = {
-    APPROVED: `${publicBaseUrl}/review/approved.png`,
-    NEEDS_WORK: `${publicBaseUrl}/review/needswork.png`,
-    UNAPPROVED: `${publicBaseUrl}/review/unapproved.png`,
+const approvalIconsPath: Record<ApprovalState, string> = {
+    APPROVED: `/review/approved.png`,
+    NEEDS_WORK: `/review/needswork.png`,
+    UNAPPROVED: `/review/unapproved.png`,
 }
-const pullRequestIcons: Record<PullRequestState, string> = {
-    OPEN: `${publicBaseUrl}/pull-request/open.png`,
-    MERGED: `${publicBaseUrl}/pull-request/merged.png`,
-    DECLINED: `${publicBaseUrl}/pull-request/declined.png`,
+const pullRequestIconsPath: Record<PullRequestState, string> = {
+    OPEN: `/pull-request/open.png`,
+    MERGED: `/pull-request/merged.png`,
+    DECLINED: `/pull-request/declined.png`,
 }
 
 function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
     const prId = event.pullRequest.id
     const approvedCount = event.pullRequest.reviewers.filter(reviewer => reviewer.status === "APPROVED").length
     const needsWorkCount = event.pullRequest.reviewers.filter(reviewer => reviewer.status === "NEEDS_WORK").length
-    const url = `${bitbucketBaseUrl}/projects/${event.pullRequest.toRef.repository.project.key}/repos/${event.pullRequest.toRef.repository.slug}/pull-requests/${prId}`
+    const url = `${bitbucketBaseUrl.value()}/projects/${event.pullRequest.toRef.repository.project.key}/repos/${event.pullRequest.toRef.repository.slug}/pull-requests/${prId}`
+    const publicBaseUrl = `https://${firebaseProjectId.value()}.web.app`
     return {
         cardsV2: [
             {
@@ -95,7 +95,7 @@ function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
                     header: {
                         title: event.pullRequest.title,
                         subtitle: `PR #${prId}`,
-                        imageUrl: pullRequestIcons[event.pullRequest.state],
+                        imageUrl: publicBaseUrl + pullRequestIconsPath[event.pullRequest.state],
                         imageAltText: event.pullRequest.state,
                     },
                     sections: [
@@ -105,7 +105,7 @@ function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
                                     decoratedText: {
                                         startIcon: {
                                             altText: "approved",
-                                            iconUrl: approveIcons.APPROVED,
+                                            iconUrl: publicBaseUrl + approvalIconsPath.APPROVED,
                                         },
                                         topLabel: "approved",
                                         text: `${approvedCount}`,
@@ -115,7 +115,7 @@ function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
                                     decoratedText: {
                                         startIcon: {
                                             altText: "needs work",
-                                            iconUrl: approveIcons.NEEDS_WORK,
+                                            iconUrl: publicBaseUrl + approvalIconsPath.NEEDS_WORK,
                                         },
                                         topLabel: "needs work",
                                         text: `${needsWorkCount}`,
@@ -129,7 +129,7 @@ function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
                             widgets: event.pullRequest.reviewers.map((reviewer) => ({
                                 decoratedText: {
                                     startIcon: {
-                                        iconUrl: approveIcons[reviewer.status],
+                                        iconUrl: publicBaseUrl + approvalIconsPath[reviewer.status],
                                     },
                                     text: reviewer.user.displayName,
                                 },
