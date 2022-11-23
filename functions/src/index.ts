@@ -35,6 +35,7 @@ export const bitbucketToGChat = region(config.region).https.onRequest(async (req
         return
     }
     const event: BitbucketEvent = bitbucketEventSchema.parse(req.body)
+    console.debug(`received event from Bitbucket`)
     if ("test" in event) {
         // only tests availability from the endpoint
         res.send()
