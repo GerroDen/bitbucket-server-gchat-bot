@@ -1,6 +1,10 @@
 # Bitbucket Server to Google Chat Bot
 
 This Google Chat App publishes pull requests and their state via Web Hooks from Bitbucket Server.
+
+![message](docs/message.png)
+
+A pull request is only shared, when rewiers are added.
 Every update to the pull request updates the message from this Google Chat App.
 
 # Start your own Chat Bot
