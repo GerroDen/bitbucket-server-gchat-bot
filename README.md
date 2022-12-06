@@ -19,7 +19,21 @@ Every update to the pull request updates the message from this Google Chat App.
 1. Go to "Configure" and insert name, avatar (as dummy you can use https://goo.gl/yKKjbw), and description.
    Choose if it should repond to direct messages or room mentions.
    (not yet: Choose the "bot url" with the Firebase function's endpoint url that you just deployed. And at last restrict the access to certain users or the whole organisation.)
-1. Go to your Bitbucket server repository and insert the secret and the function's endpoint URL
+1. Go to your Bitbucket server repository and create a webhook with
+    1. the generated shared secret
+    2. the function's endpoint URL
+    3. enabled for
+        1. PR modified,
+        2. reviewer updated,
+        3. reviewer approved,
+        4. reviewer unapproved,
+        5. reviewer needs work,
+        6. PR merged,
+        7. PR declined and
+        8. PR deleted
+
+The complete webhook config:
+![webhook config](docs/webhook-config.png)
 
 # Verification of bot authenticity
 
