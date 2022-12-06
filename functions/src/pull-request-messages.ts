@@ -32,6 +32,7 @@ export async function deleteMessage(event: PullRequestEvent): Promise<void> {
         return
     }
     const { prId, messageName } = ids
+    console.debug(`deleting message for PR #${prId}`)
     const chat = await createChatClient()
     try {
         await chat.spaces.messages.delete({ name: messageName })
@@ -48,6 +49,7 @@ export async function createOrUpdateMessage(event: PullRequestEvent): Promise<vo
         return
     }
     const { prId, parent, messageId, messageName } = ids
+    console.debug(`creating or updating message for PR #${prId}`)
     const message = buildMessage(event)
     const chat = await createChatClient()
     const exists = await chat.spaces.messages.get({ name: messageName }).then(() => true).catch(() => false)
