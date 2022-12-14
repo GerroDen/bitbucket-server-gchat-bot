@@ -29,18 +29,18 @@ import {
 initializeApp()
 
 export const bitbucketToGChat = region(config.region).https.onRequest(async (req, res): Promise<void> => {
+    console.debug(`received event from Bitbucket`)
+    if ("test" in req.body) {
+        // only tests availability from the endpoint
+        res.send()
+        return
+    }
     if (!verifyBitbucketRequest(req)) {
         console.debug(`invalid signature: ${req.header(signatureHeader)}`)
         res.sendStatus(403)
         return
     }
     const event: BitbucketEvent = bitbucketEventSchema.parse(req.body)
-    console.debug(`received event from Bitbucket`)
-    if ("test" in event) {
-        // only tests availability from the endpoint
-        res.send()
-        return
-    }
     const prId = event.pullRequest.id
     if (event.pullRequest.reviewers.length === 0) {
         await deleteMessage(event)
