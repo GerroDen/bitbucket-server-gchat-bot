@@ -143,10 +143,6 @@ export interface PullRequestDeletedEvent extends BasePullRequestEvent {
     eventKey: "pr:deleted"
 }
 
-export interface TestEvent {
-    test: true
-}
-
 export type PullRequestEvent =
     PullRequestApprovalEvent
     | PullRequestDeletedEvent
@@ -154,7 +150,5 @@ export type PullRequestEvent =
     | PullRequestReviewersUpdatedEvent
     | PullRequestModifiedEvent
 
-export type BitbucketEvent =
-    TestEvent
-    | PullRequestEvent
+export type BitbucketEvent = PullRequestEvent
 
