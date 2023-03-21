@@ -1,0 +1,337 @@
+{
+	"eventKey": "pr:reviewer:needs_work",
+	"date": "2023-03-21T10:22:49+0100",
+	"actor": {
+		"name": "username",
+		"emailAddress": "username@example.net",
+		"active": true,
+		"displayName": "User Name",
+		"id": 5716,
+		"slug": "username",
+		"type": "NORMAL",
+		"links": {
+			"self": [
+				{
+					"href": "https://bitbucket.somewhere.net/users/username"
+				}
+			]
+		}
+	},
+	"pullRequest": {
+		"id": 192,
+		"version": 7,
+		"title": "title",
+		"description": "description",
+		"state": "OPEN",
+		"open": true,
+		"closed": false,
+		"createdDate": 1679063065955,
+		"updatedDate": 1679315884847,
+		"fromRef": {
+			"id": "refs/heads/feature/PR-1497",
+			"displayId": "feature/PR-1497",
+			"latestCommit": "2c7def93e5fad3a2b6627bb5dba4acabd724f9ad",
+			"type": "BRANCH",
+			"repository": {
+				"slug": "pr",
+				"id": 2163,
+				"name": "My Project",
+				"description": "description",
+				"hierarchyId": "a2c98bb349524b2c7ea9",
+				"scmId": "git",
+				"state": "AVAILABLE",
+				"statusMessage": "Available",
+				"forkable": true,
+				"project": {
+					"key": "PR",
+					"id": 1523,
+					"name": "My Project",
+					"description": "description",
+					"public": false,
+					"type": "NORMAL",
+					"links": {
+						"self": [
+							{
+								"href": "https://bitbucket.somewhere.net/projects/PR"
+							}
+						]
+					}
+				},
+				"public": false,
+				"archived": false,
+				"links": {
+					"clone": [
+						{
+							"href": "https://bitbucket.somewhere.net/scm/PR/pr.git",
+							"name": "http"
+						},
+						{
+							"href": "ssh://git@bitbucket.somewhere.net:7999/PR/pr.git",
+							"name": "ssh"
+						}
+					],
+					"self": [
+						{
+							"href": "https://bitbucket.somewhere.net/projects/PR/repos/pr/browse"
+						}
+					]
+				}
+			}
+		},
+		"toRef": {
+			"id": "refs/heads/develop",
+			"displayId": "develop",
+			"latestCommit": "d25a72a89ba251b48af82e1ae6b5ca4369408d9e",
+			"type": "BRANCH",
+			"repository": {
+				"slug": "pr",
+				"id": 2163,
+				"name": "My Project",
+				"description": "description",
+				"hierarchyId": "a2c98bb349524b2c7ea9",
+				"scmId": "git",
+				"state": "AVAILABLE",
+				"statusMessage": "Available",
+				"forkable": true,
+				"project": {
+					"key": "PR",
+					"id": 1523,
+					"name": "My Project",
+					"description": "description",
+					"public": false,
+					"type": "NORMAL",
+					"links": {
+						"self": [
+							{
+								"href": "https://bitbucket.somewhere.net/projects/PR"
+							}
+						]
+					}
+				},
+				"public": false,
+				"archived": false,
+				"links": {
+					"clone": [
+						{
+							"href": "https://bitbucket.somewhere.net/scm/PR/pr.git",
+							"name": "http"
+						},
+						{
+							"href": "ssh://git@bitbucket.somewhere.net:7999/PR/pr.git",
+							"name": "ssh"
+						}
+					],
+					"self": [
+						{
+							"href": "https://bitbucket.somewhere.net/projects/PR/repos/pr/browse"
+						}
+					]
+				}
+			}
+		},
+		"locked": false,
+		"author": {
+			"user": {
+				"name": "username",
+				"emailAddress": "username@example.net",
+				"active": true,
+				"displayName": "User Name",
+				"id": 7258,
+				"slug": "username",
+				"type": "NORMAL",
+				"links": {
+					"self": [
+						{
+							"href": "https://bitbucket.somewhere.net/users/username"
+						}
+					]
+				}
+			},
+			"role": "AUTHOR",
+			"approved": false,
+			"status": "UNAPPROVED"
+		},
+		"reviewers": [
+			{
+				"user": {
+					"name": "username",
+					"emailAddress": "username@example.net",
+					"active": true,
+					"displayName": "User Name",
+					"id": 6411,
+					"slug": "username",
+					"type": "NORMAL",
+					"links": {
+						"self": [
+							{
+								"href": "https://bitbucket.somewhere.net/users/username"
+							}
+						]
+					}
+				},
+				"role": "REVIEWER",
+				"approved": false,
+				"status": "UNAPPROVED"
+			},
+			{
+				"user": {
+					"name": "username",
+					"emailAddress": "username@example.net",
+					"active": true,
+					"displayName": "User Name",
+					"id": 68,
+					"slug": "username",
+					"type": "NORMAL",
+					"links": {
+						"self": [
+							{
+								"href": "https://bitbucket.somewhere.net/users/username"
+							}
+						]
+					}
+				},
+				"role": "REVIEWER",
+				"approved": false,
+				"status": "UNAPPROVED"
+			},
+			{
+				"user": {
+					"name": "username",
+					"emailAddress": "username@example.net",
+					"active": true,
+					"displayName": "User Name",
+					"id": 5578,
+					"slug": "username",
+					"type": "NORMAL",
+					"links": {
+						"self": [
+							{
+								"href": "https://bitbucket.somewhere.net/users/username"
+							}
+						]
+					}
+				},
+				"role": "REVIEWER",
+				"approved": false,
+				"status": "UNAPPROVED"
+			},
+			{
+				"user": {
+					"name": "username",
+					"emailAddress": "username@example.net",
+					"active": true,
+					"displayName": "User Name",
+					"id": 5885,
+					"slug": "username",
+					"type": "NORMAL",
+					"links": {
+						"self": [
+							{
+								"href": "https://bitbucket.somewhere.net/users/username"
+							}
+						]
+					}
+				},
+				"role": "REVIEWER",
+				"approved": false,
+				"status": "UNAPPROVED"
+			},
+			{
+				"user": {
+					"name": "username",
+					"emailAddress": "username@example.net",
+					"active": true,
+					"displayName": "User Name",
+					"id": 4165,
+					"slug": "username",
+					"type": "NORMAL",
+					"links": {
+						"self": [
+							{
+								"href": "https://bitbucket.somewhere.net/users/username"
+							}
+						]
+					}
+				},
+				"role": "REVIEWER",
+				"approved": false,
+				"status": "UNAPPROVED"
+			},
+			{
+				"user": {
+					"name": "username",
+					"emailAddress": "username@example.net",
+					"active": true,
+					"displayName": "User Name",
+					"id": 5716,
+					"slug": "username",
+					"type": "NORMAL",
+					"links": {
+						"self": [
+							{
+								"href": "https://bitbucket.somewhere.net/users/username"
+							}
+						]
+					}
+				},
+				"lastReviewedCommit": "2c7def93e5fad3a2b6627bb5dba4acabd724f9ad",
+				"role": "REVIEWER",
+				"approved": false,
+				"status": "NEEDS_WORK"
+			}
+		],
+		"participants": [
+			{
+				"user": {
+					"name": "username",
+					"active": true,
+					"displayName": "User Name",
+					"emailAddress": null,
+					"id": 6303,
+					"slug": "username",
+					"type": "SERVICE",
+					"links": {
+						"self": [
+							{
+								"href": "https://bitbucket.somewhere.net/bots/username"
+							}
+						]
+					}
+				},
+				"role": "PARTICIPANT",
+				"approved": false,
+				"status": "UNAPPROVED"
+			}
+		],
+		"links": {
+			"self": [
+				{
+					"href": "https://bitbucket.somewhere.net/projects/PR/repos/pr/pull-requests/192"
+				}
+			]
+		}
+	},
+	"participant": {
+		"user": {
+			"name": "username",
+			"emailAddress": "username@example.net",
+			"active": true,
+			"displayName": "User Name",
+			"id": 5716,
+			"slug": "username",
+			"type": "NORMAL",
+			"links": {
+				"self": [
+					{
+						"href": "https://bitbucket.somewhere.net/users/username"
+					}
+				]
+			}
+		},
+		"lastReviewedCommit": "2c7def93e5fad3a2b6627bb5dba4acabd724f9ad",
+		"role": "REVIEWER",
+		"approved": false,
+		"status": "NEEDS_WORK"
+	},
+	"previousStatus": "UNAPPROVED"
+}
