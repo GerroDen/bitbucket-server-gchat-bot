@@ -23,7 +23,13 @@ export const bitbucketToGChat = region(config.region).https.onRequest(async (req
         res.sendStatus(403)
         return
     }
-    const event: BitbucketEvent = bitbucketEventSchema.parse(req.body)
+    const parseResult = bitbucketEventSchema.safeParse(req.body)
+    if (!parseResult.success) {
+        res.status(400)
+        res.send(parseResult.error)
+        return
+    }
+    const event: BitbucketEvent = parseResult.data
     const prId = event.pullRequest.id
     if (event.pullRequest.reviewers.length === 0) {
         await deleteMessage(event)
