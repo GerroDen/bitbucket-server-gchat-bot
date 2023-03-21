@@ -2,7 +2,7 @@ import { chat_v1 } from "@googleapis/chat"
 import {
     addCommandSignature,
     RepositoryLocator,
-} from "./chat-commands"
+} from "@/gchat-bot/chat-commands"
 
 export function help(): chat_v1.Schema$Message {
     return {

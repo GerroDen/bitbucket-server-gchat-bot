@@ -4,7 +4,7 @@ import {
     FirestoreDataConverter,
     getFirestore,
 } from "firebase-admin/firestore"
-import { RepositoryLocator } from "./chat-commands"
+import { RepositoryLocator } from "@/gchat-bot/chat-commands"
 
 export type RepositoryData =
     RepositoryLocator

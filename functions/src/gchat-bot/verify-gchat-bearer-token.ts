@@ -11,7 +11,7 @@ import {
     chatbotProjectId,
     chatIssuer,
     jwksUri,
-} from "./config"
+} from "@/config"
 
 const issuer = chatIssuer
 const bearerPrefix = "Bearer "

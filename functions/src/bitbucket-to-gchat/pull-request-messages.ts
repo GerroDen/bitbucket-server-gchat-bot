@@ -7,12 +7,12 @@ import {
     ApprovalState,
     PullRequestEvent,
     PullRequestState,
-} from "./bitbucket-events"
+} from "@/bitbucket-to-gchat/bitbucket-events"
 import {
     bitbucketBaseUrl,
     firebaseProjectId,
-} from "./config"
-import { findRepositoryData } from "./store"
+} from "@/config"
+import { findRepositoryData } from "@/store"
 
 async function createChatClient(): Promise<chat_v1.Chat> {
     const googleAuth = new auth.GoogleAuth({
