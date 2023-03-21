@@ -11,6 +11,6 @@ export default {
 	moduleNameMapper: {
 		"^@/(.*)$": "<rootDir>/$1",
 	},
-	reporters: ["default", ["jest-junit", {outputDirectory: "reports"}]],
+	reporters: ["default"],
 	coverageDirectory: "<rootDir>/../reports",
 }
