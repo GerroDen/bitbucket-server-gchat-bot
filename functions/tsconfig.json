@@ -8,7 +8,12 @@
 		"target": "es2017",
 		"allowJs": true,
 		"skipLibCheck": true,
-		"esModuleInterop": true
+		"esModuleInterop": true,
+		"paths": {
+			"@/*": [
+				"./src/*"
+			]
+		}
 	},
 	"compileOnSave": true,
 	"include": [
