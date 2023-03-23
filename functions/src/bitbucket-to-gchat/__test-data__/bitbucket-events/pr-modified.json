@@ -310,8 +310,8 @@
 			]
 		}
 	},
-	"previousTitle": "Ca/CA-54 eslint ist langsam",
-	"previousDescription": "# Tooling\n## Changes\n* Add and document env var switch `DISABLE_SLOW_LINT_RULES=true` to disable slow eslint rules like `deprecation/deprecation` and `import/namespace`.\n* Disable slow lint rules on `git push`.\n\n# Web\n## Changes\n* Eslint rules `deprecation/deprecation` and `import/namespace` are disabled when linting with `DISABLE_SLOW_LINT_RULES=true`. Both rules should not have a significant error occurance, while `prettier/prettier` is slow in web but is very essential and important for collaboration.\n* Update Prettier and related eslint plugins to latest version in futile hope for a speedup.",
+	"previousTitle": "PR-54",
+	"previousDescription": "previousDescription",
 	"previousTarget": {
 		"id": "refs/heads/develop",
 		"displayId": "develop",
