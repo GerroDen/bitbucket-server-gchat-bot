@@ -25,6 +25,7 @@ export const bitbucketToGChat = region(config.region).https.onRequest(async (req
     }
     const parseResult = bitbucketEventSchema.safeParse(req.body)
     if (!parseResult.success) {
+        console.debug(`invalid body`, parseResult.error)
         res.status(400)
         res.send(parseResult.error)
         return
