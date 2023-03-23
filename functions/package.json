@@ -8,7 +8,7 @@
 	"scripts": {
 		"build": "tsc && tsc-alias",
 		"deploy": "firebase deploy --only functions",
-		"gen-schema": "ts-to-zod src/bitbucket-to-gchat/bitbucket-events.ts src/bitbucket-to-gchat/bitbucket-events-schema.ts",
+		"gen-schema": "ts-to-zod src/bitbucket-to-gchat/events/bitbucket-events.ts src/bitbucket-to-gchat/events/bitbucket-events-schema.ts",
 		"lint": "eslint --quiet --ext .js,.ts .",
 		"logs": "firebase functions:log",
 		"serve": "npm run build && firebase emulators:start --only functions",

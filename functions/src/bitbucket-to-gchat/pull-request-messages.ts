@@ -7,7 +7,7 @@ import {
     ApprovalState,
     PullRequestEvent,
     PullRequestState,
-} from "@/bitbucket-to-gchat/bitbucket-events"
+} from "@/bitbucket-to-gchat/events/bitbucket-events"
 import {
     bitbucketBaseUrl,
     firebaseProjectId,

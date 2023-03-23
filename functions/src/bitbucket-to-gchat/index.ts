@@ -4,8 +4,8 @@ import {
     signatureHeader,
     verifyBitbucketRequest,
 } from "@/bitbucket-to-gchat/verify-bitbucket-request"
-import { BitbucketEvent } from "@/bitbucket-to-gchat/bitbucket-events"
-import { bitbucketEventSchema } from "@/bitbucket-to-gchat/bitbucket-events-schema"
+import { BitbucketEvent } from "@/bitbucket-to-gchat/events/bitbucket-events"
+import { bitbucketEventSchema } from "@/bitbucket-to-gchat/events/bitbucket-events-schema"
 import {
     createOrUpdateMessage,
     deleteMessage,

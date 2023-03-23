@@ -7,23 +7,32 @@ export interface BasePullRequestEvent {
 
 export type BitbucketUserType =
     "NORMAL"
+    | "SERVICE"
     | string
 
 export interface BitbucketUser {
     name: string
-    emailAddress: string
+    emailAddress: string | null
     id: number
     displayName: string
     active: boolean
     slug: string
     type: BitbucketUserType
+    links: Links
+}
+
+export interface Links {
+    [K: string]: Record<string, string>[]
 }
 
 export interface BaseProject {
     key: string
     id: number
     name: string
+    description: string
     type: string
+    public: boolean
+    links: Links
 }
 
 export interface PersonalProject extends BaseProject {
@@ -42,13 +51,17 @@ export type Project =
 interface Repository {
     slug: string
     id: number
+    hierarchyId: string
     name: string
+    description: string
     scmId: string
     state: string
     statusMessage: string
     forkable: boolean
     project: Project
     public: boolean
+    archived: boolean
+    links: Links
 }
 
 export interface GitRef {
@@ -56,12 +69,17 @@ export interface GitRef {
     displayId: string
     latestCommit: string
     repository: Repository
+    type: RefType
 }
 
 export type ApprovalState =
     "APPROVED"
     | "UNAPPROVED"
     | "NEEDS_WORK"
+    | string
+
+export type RefType =
+    "BRANCH"
     | string
 
 export type ParticipantRole =
@@ -74,6 +92,7 @@ export interface Participant {
     role: ParticipantRole
     approved: boolean
     status: ApprovalState
+    lastReviewedCommit?: string
 }
 
 export type PullRequestState =
@@ -97,7 +116,8 @@ export interface PullRequest {
     locked: false
     author: Participant
     reviewers: Participant[]
-    participants: BitbucketUser[]
+    participants: Participant[]
+    links: Links
 }
 
 export interface MergeTarget {
