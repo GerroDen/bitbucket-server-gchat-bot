@@ -107,13 +107,14 @@ function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
     const url = `${bitbucketBaseUrl.value()}/projects/${event.pullRequest.toRef.repository.project.key}/repos/${event.pullRequest.toRef.repository.slug}/pull-requests/${prId}`
     const publicBaseUrl = `https://${firebaseProjectId.value()}.web.app`
     return {
+        text: `PR #${prId}: ${event.pullRequest.title}`,
         cardsV2: [
             {
                 cardId: "pr",
                 card: {
                     header: {
-                        title: event.pullRequest.title,
-                        subtitle: `PR #${prId}`,
+                        title: `PR #${prId}`,
+                        subtitle: event.pullRequest.title,
                         imageUrl: publicBaseUrl + pullRequestIconsPath[event.pullRequest.state],
                         imageAltText: event.pullRequest.state,
                     },
