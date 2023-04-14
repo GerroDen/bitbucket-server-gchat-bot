@@ -1,5 +1,6 @@
 import { region } from "firebase-functions"
 import * as config from "@/config"
+import { bitbucketSecret } from "@/config"
 import {
     signatureHeader,
     verifyBitbucketRequest,
@@ -11,7 +12,7 @@ import {
     deleteMessage,
 } from "@/bitbucket-to-gchat/pull-request-messages"
 
-export const bitbucketToGChat = region(config.region).https.onRequest(async (req, res): Promise<void> => {
+export const bitbucketToGChat = region(config.region).runWith({ secrets: [bitbucketSecret] }).https.onRequest(async (req, res): Promise<void> => {
     console.debug(`received event from Bitbucket`)
     if ("test" in req.body) {
         // only tests availability from the endpoint
