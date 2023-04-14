@@ -19,7 +19,7 @@ export const bitbucketToGChat = region(config.region).https.onRequest(async (req
         return
     }
     if (!verifyBitbucketRequest(req)) {
-        console.debug(`invalid signature: ${req.header(signatureHeader)}`)
+        console.debug(`invalid signature: "${req.header(signatureHeader)}"`)
         res.sendStatus(403)
         return
     }
