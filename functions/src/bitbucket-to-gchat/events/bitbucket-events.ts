@@ -130,9 +130,9 @@ export interface MergeTarget {
 
 export interface PullRequestModifiedEvent extends BasePullRequestEvent {
     eventKey: "pr:modified",
-    previousTitle: string,
-    previousDescription: string,
-    previousTarget: MergeTarget
+    previousTitle?: string,
+    previousDescription?: string,
+    previousTarget?: MergeTarget
 }
 
 export interface PullRequestReviewersUpdatedEvent extends BasePullRequestEvent {
