@@ -110,7 +110,7 @@ export const pullRequestSchema = z.object({
   id: z.number(),
   version: z.number(),
   title: z.string(),
-  description: z.string(),
+  description: z.string().optional(),
   state: pullRequestStateSchema,
   open: z.boolean(),
   closed: z.boolean(),
@@ -135,9 +135,9 @@ export const basePullRequestEventSchema = z.object({
 export const pullRequestModifiedEventSchema = basePullRequestEventSchema.extend(
   {
     eventKey: z.literal("pr:modified"),
-    previousTitle: z.string(),
-    previousDescription: z.string(),
-    previousTarget: mergeTargetSchema,
+    previousTitle: z.string().optional(),
+    previousDescription: z.string().optional(),
+    previousTarget: mergeTargetSchema.optional(),
   }
 );
 

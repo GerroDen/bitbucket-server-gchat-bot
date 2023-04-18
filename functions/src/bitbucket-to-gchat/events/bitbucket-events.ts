@@ -105,7 +105,7 @@ export interface PullRequest {
     id: number
     version: number
     title: string
-    description: string
+    description?: string
     state: PullRequestState
     open: boolean
     closed: boolean
