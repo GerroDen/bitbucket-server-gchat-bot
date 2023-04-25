@@ -7,21 +7,7 @@ export const bitbucketUserTypeSchema = z.union([
   z.string(),
 ]);
 
-export const linksSchema = z.record(z.array(z.record(z.string())));
-
-export const baseProjectSchema = z.object({
-  key: z.string(),
-  id: z.number(),
-  name: z.string(),
-  description: z.string(),
-  type: z.string(),
-  public: z.boolean(),
-  links: linksSchema,
-});
-
-export const normalProjectSchema = baseProjectSchema.extend({
-  type: z.literal("NORMAL"),
-});
+const linkEntrySchema = z.record(z.string()).nullable();
 
 export const refTypeSchema = z.union([z.literal("BRANCH"), z.string()]);
 
@@ -53,6 +39,22 @@ export const mergeTargetSchema = z.object({
   latestChangeset: z.string(),
 });
 
+export const linksSchema = z.record(z.array(linkEntrySchema));
+
+export const baseProjectSchema = z.object({
+  key: z.string(),
+  id: z.number(),
+  name: z.string(),
+  description: z.string().optional(),
+  type: z.string().optional(),
+  public: z.boolean(),
+  links: linksSchema.optional(),
+});
+
+export const normalProjectSchema = baseProjectSchema.extend({
+  type: z.literal("NORMAL"),
+});
+
 export const bitbucketUserSchema = z.object({
   name: z.string(),
   emailAddress: z.string().nullable(),
@@ -61,7 +63,7 @@ export const bitbucketUserSchema = z.object({
   active: z.boolean(),
   slug: z.string(),
   type: bitbucketUserTypeSchema,
-  links: linksSchema,
+  links: linksSchema.optional(),
 });
 
 export const personalProjectSchema = baseProjectSchema.extend({
@@ -77,17 +79,17 @@ export const projectSchema = z.union([
 const repositorySchema = z.object({
   slug: z.string(),
   id: z.number(),
-  hierarchyId: z.string(),
+  hierarchyId: z.string().optional(),
   name: z.string(),
-  description: z.string(),
+  description: z.string().optional(),
   scmId: z.string(),
   state: z.string(),
   statusMessage: z.string(),
   forkable: z.boolean(),
   project: projectSchema,
   public: z.boolean(),
-  archived: z.boolean(),
-  links: linksSchema,
+  archived: z.boolean().optional(),
+  links: linksSchema.optional(),
 });
 
 export const gitRefSchema = z.object({
@@ -95,7 +97,7 @@ export const gitRefSchema = z.object({
   displayId: z.string(),
   latestCommit: z.string(),
   repository: repositorySchema,
-  type: refTypeSchema,
+  type: refTypeSchema.optional(),
 });
 
 export const participantSchema = z.object({
@@ -115,14 +117,15 @@ export const pullRequestSchema = z.object({
   open: z.boolean(),
   closed: z.boolean(),
   createdDate: z.number(),
-  updatedDate: z.number(),
+  updatedDate: z.number().optional(),
+  closedDate: z.number().optional(),
   fromRef: gitRefSchema,
   toRef: gitRefSchema,
   locked: z.literal(false),
   author: participantSchema,
   reviewers: z.array(participantSchema),
   participants: z.array(participantSchema),
-  links: linksSchema,
+  links: linksSchema.optional(),
 });
 
 export const basePullRequestEventSchema = z.object({
@@ -179,9 +182,21 @@ export const pullRequestDeletedEventSchema = basePullRequestEventSchema.extend({
   eventKey: z.literal("pr:deleted"),
 });
 
+export const pullRequestOpenedEventSchema = basePullRequestEventSchema.extend({
+  eventKey: z.literal("pr:opened"),
+});
+
+export const pullRequestDeclinedEventSchema = basePullRequestEventSchema.extend(
+  {
+    eventKey: z.literal("pr:declined"),
+  }
+);
+
 export const pullRequestEventSchema = z.union([
+  pullRequestOpenedEventSchema,
   pullRequestApprovalEventSchema,
   pullRequestDeletedEventSchema,
+  pullRequestDeclinedEventSchema,
   pullRequestMergedEventSchema,
   pullRequestReviewersUpdatedEventSchema,
   pullRequestModifiedEventSchema,

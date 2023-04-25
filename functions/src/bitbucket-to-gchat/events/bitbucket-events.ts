@@ -18,21 +18,25 @@ export interface BitbucketUser {
     active: boolean
     slug: string
     type: BitbucketUserType
-    links: Links
+    links?: Links
 }
 
 export interface Links {
-    [K: string]: Record<string, string>[]
+    [K: string]: LinkEntry[]
 }
+
+type LinkEntry =
+    Record<string, string>
+    | null
 
 export interface BaseProject {
     key: string
     id: number
     name: string
-    description: string
-    type: string
+    description?: string
+    type?: string
     public: boolean
-    links: Links
+    links?: Links
 }
 
 export interface PersonalProject extends BaseProject {
@@ -51,17 +55,17 @@ export type Project =
 interface Repository {
     slug: string
     id: number
-    hierarchyId: string
+    hierarchyId?: string
     name: string
-    description: string
+    description?: string
     scmId: string
     state: string
     statusMessage: string
     forkable: boolean
     project: Project
     public: boolean
-    archived: boolean
-    links: Links
+    archived?: boolean
+    links?: Links
 }
 
 export interface GitRef {
@@ -69,7 +73,7 @@ export interface GitRef {
     displayId: string
     latestCommit: string
     repository: Repository
-    type: RefType
+    type?: RefType
 }
 
 export type ApprovalState =
@@ -110,14 +114,15 @@ export interface PullRequest {
     open: boolean
     closed: boolean
     createdDate: number
-    updatedDate: number
+    updatedDate?: number
+    closedDate?: number
     fromRef: GitRef
     toRef: GitRef
     locked: false
     author: Participant
     reviewers: Participant[]
     participants: Participant[]
-    links: Links
+    links?: Links
 }
 
 export interface MergeTarget {
@@ -163,9 +168,19 @@ export interface PullRequestDeletedEvent extends BasePullRequestEvent {
     eventKey: "pr:deleted"
 }
 
+export interface PullRequestOpenedEvent extends BasePullRequestEvent {
+    eventKey: "pr:opened"
+}
+
+export interface PullRequestDeclinedEvent extends BasePullRequestEvent {
+    eventKey: "pr:declined"
+}
+
 export type PullRequestEvent =
-    PullRequestApprovalEvent
+    PullRequestOpenedEvent
+    | PullRequestApprovalEvent
     | PullRequestDeletedEvent
+    | PullRequestDeclinedEvent
     | PullRequestMergedEvent
     | PullRequestReviewersUpdatedEvent
     | PullRequestModifiedEvent
