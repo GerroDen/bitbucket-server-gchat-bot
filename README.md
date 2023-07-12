@@ -34,14 +34,15 @@ Every update to the pull request updates the message from this Google Chat App.
     1. the generated shared secret
     2. the function's endpoint URL
     3. enabled for
-        1. PR modified,
-        2. reviewer updated,
-        3. reviewer approved,
-        4. reviewer unapproved,
-        5. reviewer needs work,
-        6. PR merged,
-        7. PR declined and
-        8. PR deleted
+        1. PR opened / reopened,
+        2. PR modified,
+        3. reviewer updated,
+        4. reviewer approved,
+        5. reviewer unapproved,
+        6. reviewer needs work,
+        7. PR merged,
+        8. PR declined and
+        9. PR deleted
 9. Mention or add the Bot within any Google chat channel with `/add <project key> <repo slug>` to let him report PRs with reviewers to that channel
 
 The complete webhook config:
