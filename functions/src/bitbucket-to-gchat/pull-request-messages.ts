@@ -1,18 +1,7 @@
-import {
-    auth,
-    chat,
-    chat_v1,
-} from "@googleapis/chat"
-import {
-    ApprovalState,
-    PullRequestEvent,
-    PullRequestState,
-} from "@/bitbucket-to-gchat/events/bitbucket-events"
-import {
-    bitbucketBaseUrl,
-    firebaseProjectId,
-} from "@/config"
-import { findRepositoryData } from "@/store"
+import {auth, chat, chat_v1,} from "@googleapis/chat"
+import {ApprovalState, PullRequestEvent, PullRequestState,} from "@/bitbucket-to-gchat/events/bitbucket-events"
+import {bitbucketBaseUrl, firebaseProjectId,} from "@/config"
+import {findRepositoryData} from "@/store"
 
 async function createChatClient(): Promise<chat_v1.Chat> {
     const googleAuth = new auth.GoogleAuth({
@@ -31,11 +20,11 @@ export async function deleteMessage(event: PullRequestEvent): Promise<void> {
         console.debug(`Skipping event`)
         return
     }
-    const { prId, messageName } = ids
+    const {prId, messageName} = ids
     console.debug(`deleting message for PR #${prId}`)
     const chat = await createChatClient()
     try {
-        await chat.spaces.messages.delete({ name: messageName })
+        await chat.spaces.messages.delete({name: messageName})
         console.debug(`deleted message for PR #${prId}`)
     } catch (e) {
         console.debug(`no need to delete message for PR #${prId}`)
@@ -48,17 +37,17 @@ export async function createOrUpdateMessage(event: PullRequestEvent): Promise<vo
         console.debug(`Skipping event`)
         return
     }
-    const { prId, parent, messageId, messageName } = ids
+    const {prId, parent, messageId, messageName} = ids
     console.debug(`creating or updating message for PR #${prId}`)
     const message = buildMessage(event)
     const chat = await createChatClient()
-    const exists = await chat.spaces.messages.get({ name: messageName }).then(() => true).catch(() => false)
+    const exists = await chat.spaces.messages.get({name: messageName}).then(() => true).catch(() => false)
     if (exists) {
         const updateMask = ("cardsV2" in message) ? "cardsV2" : "text"
-        await chat.spaces.messages.update({ name: messageName, requestBody: message, updateMask })
+        await chat.spaces.messages.update({name: messageName, requestBody: message, updateMask})
         console.debug(`updated message for PR #${prId}`)
     } else {
-        await chat.spaces.messages.create({ parent, messageId, requestBody: message })
+        await chat.spaces.messages.create({parent, messageId, requestBody: message})
         console.debug(`created message for PR #${prId}`)
     }
 }
@@ -73,7 +62,7 @@ interface MessageIds {
 async function buildIds(event: PullRequestEvent): Promise<MessageIds | undefined> {
     const projectKey = event.pullRequest.fromRef.repository.project.key
     const repositorySlug = event.pullRequest.fromRef.repository.slug
-    const repositoryData = await findRepositoryData({ projectKey, repositorySlug })
+    const repositoryData = await findRepositoryData({projectKey, repositorySlug})
     if (!repositoryData?.spaceName) {
         return undefined
     }
@@ -120,6 +109,17 @@ function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
                     },
                     sections: [
                         {
+                            header: "Creator",
+                            widgets: [
+                                {
+                                    decoratedText: {
+                                        text: event.pullRequest.author.user.displayName
+                                    }
+                                }
+                            ],
+                        },
+                        {
+                            header: "Reviews",
                             widgets: [
                                 {
                                     decoratedText: {
