@@ -115,31 +115,45 @@ function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
                                     decoratedText: {
                                         text: event.pullRequest.author.user.displayName
                                     }
-                                }
+                                },
                             ],
                         },
                         {
                             header: "Reviews",
                             widgets: [
                                 {
-                                    decoratedText: {
-                                        startIcon: {
-                                            altText: "approved",
-                                            iconUrl: publicBaseUrl + approvalIconsPath.APPROVED,
-                                        },
-                                        topLabel: "approved",
-                                        text: `${approvedCount}`,
-                                    },
-                                },
-                                {
-                                    decoratedText: {
-                                        startIcon: {
-                                            altText: "needs work",
-                                            iconUrl: publicBaseUrl + approvalIconsPath.NEEDS_WORK,
-                                        },
-                                        topLabel: "needs work",
-                                        text: `${needsWorkCount}`,
-                                    },
+                                    columns: {
+                                        columnItems: [
+                                            {
+                                                widgets: [
+                                                    {
+                                                        decoratedText: {
+                                                            startIcon: {
+                                                                altText: "approved",
+                                                                iconUrl: publicBaseUrl + approvalIconsPath.APPROVED,
+                                                            },
+                                                            topLabel: "approved",
+                                                            text: `${approvedCount}`,
+                                                        },
+                                                    },
+                                                ]
+                                            },
+                                            {
+                                                widgets: [
+                                                    {
+                                                        decoratedText: {
+                                                            startIcon: {
+                                                                altText: "needs work",
+                                                                iconUrl: publicBaseUrl + approvalIconsPath.NEEDS_WORK,
+                                                            },
+                                                            topLabel: "needs work",
+                                                            text: `${needsWorkCount}`,
+                                                        },
+                                                    },
+                                                ]
+                                            }
+                                        ]
+                                    }
                                 },
                             ],
                         },
