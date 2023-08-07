@@ -1,17 +1,17 @@
 {
-	"name": "web",
-	"version": "0.0.0",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"build": "gulp"
-	},
-	"devDependencies": {
-		"@types/gulp": "^4.0.10",
-		"gulp": "^4.0.2",
-		"gulp-svg2png": "^2.0.2"
-	},
-	"directories": {
-		"serve": "dist"
-	}
+  "name": "web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "gulp"
+  },
+  "devDependencies": {
+    "@types/gulp": "^4.0.13",
+    "gulp": "^4.0.2",
+    "gulp-svg2png": "^2.0.2"
+  },
+  "directories": {
+    "serve": "dist"
+  }
 }
