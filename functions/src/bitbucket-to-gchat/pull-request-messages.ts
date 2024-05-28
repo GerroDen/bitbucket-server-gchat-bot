@@ -14,7 +14,8 @@ async function createChatClient(): Promise<chat_v1.Chat> {
   const authClient = await googleAuth.getClient();
   return chat({
     version: "v1",
-    auth: authClient,
+    // typing will be fixed: https://github.com/googleapis/google-auth-library-nodejs/issues/1677
+    auth: authClient as never,
   });
 }
 
