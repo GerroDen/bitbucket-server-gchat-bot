@@ -38,13 +38,3 @@ export const chatbotProjectId = defineString("CHATBOT_PROJECT_ID", {
  * @see https://confluence.atlassian.com/bitbucketserver084/manage-webhooks-1167707976.html#Managewebhooks-Securingyourwebhook
  */
 export const bitbucketSecret = defineSecret("BITBUCKET_SECRET");
-
-/**
- * HTTP auth token for REST API
- */
-export const bitbucketUser = defineString("BITBUCKET_USER");
-
-/**
- * HTTP auth token for REST API
- */
-export const bitbucketToken = defineSecret("BITBUCKET_TOKEN");
