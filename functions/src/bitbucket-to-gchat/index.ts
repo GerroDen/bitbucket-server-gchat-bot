@@ -1,18 +1,11 @@
-import { region } from "firebase-functions"
-import * as config from "@/config"
-import { bitbucketSecret } from "@/config"
-import {
-    signatureHeader,
-    verifyBitbucketRequest,
-} from "@/bitbucket-to-gchat/verify-bitbucket-request"
-import { BitbucketEvent } from "@/bitbucket-to-gchat/events/bitbucket-events"
-import { bitbucketEventSchema } from "@/bitbucket-to-gchat/events/bitbucket-events-schema"
-import {
-    createOrUpdateMessage,
-    deleteMessage,
-} from "@/bitbucket-to-gchat/pull-request-messages"
+import {bitbucketSecret} from "@/config";
+import {onRequest} from "firebase-functions/v2/https"
+import {signatureHeader, verifyBitbucketRequest,} from "@/bitbucket-to-gchat/verify-bitbucket-request"
+import {BitbucketEvent} from "@/bitbucket-to-gchat/events/bitbucket-events"
+import {bitbucketEventSchema} from "@/bitbucket-to-gchat/events/bitbucket-events-schema"
+import {createOrUpdateMessage, deleteMessage,} from "@/bitbucket-to-gchat/pull-request-messages"
 
-export const bitbucketToGChat = region(config.region).runWith({ secrets: [bitbucketSecret] }).https.onRequest(async (req, res): Promise<void> => {
+export const bitbucketToGChat = onRequest({secrets: [bitbucketSecret]}, async (req, res): Promise<void> => {
     console.debug(`received event from Bitbucket`)
     if ("test" in req.body) {
         // only tests availability from the endpoint

@@ -1,6 +1,6 @@
-import { createHmac } from "crypto"
-import { Request } from "firebase-functions/lib/common/providers/https"
-import { bitbucketSecret } from "@/config"
+import {createHmac} from "crypto"
+import {Request} from "firebase-functions/v2/https"
+import {bitbucketSecret} from "@/config"
 
 export const signatureHeader = "X-Hub-Signature"
 const signatureHeaderPrefix = "sha256="
