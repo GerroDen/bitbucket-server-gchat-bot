@@ -141,16 +141,15 @@ export const pullRequestModifiedEventSchema = basePullRequestEventSchema.extend(
     previousTitle: z.string().optional(),
     previousDescription: z.string().optional(),
     previousTarget: mergeTargetSchema.optional(),
-  }
+  },
 );
 
-export const pullRequestReviewersUpdatedEventSchema = basePullRequestEventSchema.extend(
-  {
+export const pullRequestReviewersUpdatedEventSchema =
+  basePullRequestEventSchema.extend({
     eventKey: z.literal("pr:reviewer:updated"),
     addedReviewers: z.array(bitbucketUserSchema),
     removedReviewers: z.array(bitbucketUserSchema),
-  }
-);
+  });
 
 export const pullRequestApprovalEventSchema = basePullRequestEventSchema.extend(
   {
@@ -161,7 +160,7 @@ export const pullRequestApprovalEventSchema = basePullRequestEventSchema.extend(
     ]),
     participant: participantSchema,
     previousStatus: approvalStateSchema,
-  }
+  },
 );
 
 export const pullRequestMergedEventSchema = basePullRequestEventSchema.extend({
@@ -174,7 +173,7 @@ export const pullRequestMergedEventSchema = basePullRequestEventSchema.extend({
           id: z.string(),
         }),
       }),
-    })
+    }),
   ),
 });
 
@@ -189,7 +188,7 @@ export const pullRequestOpenedEventSchema = basePullRequestEventSchema.extend({
 export const pullRequestDeclinedEventSchema = basePullRequestEventSchema.extend(
   {
     eventKey: z.literal("pr:declined"),
-  }
+  },
 );
 
 export const pullRequestEventSchema = z.union([

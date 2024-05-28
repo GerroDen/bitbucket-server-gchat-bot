@@ -1,165 +1,165 @@
 {
-	"eventKey": "pr:declined",
-	"date": "2023-02-21T11:28:29+0100",
-	"actor": {
-		"name": "username",
-		"emailAddress": "username@example.net",
-		"active": true,
-		"displayName": "User Name",
-		"id": 6411,
-		"slug": "username",
-		"type": "NORMAL",
-		"links": {
-			"self": [
-				{
-					"href": "https://bitbucket.somewhere.net/users/username"
-				}
-			]
-		}
-	},
-	"pullRequest": {
-		"id": 154,
-		"version": 3,
-		"title": "title",
-		"description": "description",
-		"state": "DECLINED",
-		"open": false,
-		"closed": true,
-		"createdDate": 1676889522119,
-		"updatedDate": 1676975309341,
-		"closedDate": 1676975309341,
-		"fromRef": {
-			"id": "refs/heads/improvement/PR-1304",
-			"displayId": "improvement/PR-1304",
-			"latestCommit": "76fcf17127bc69d37e992020020a87fcf4ec7060",
-			"type": "BRANCH",
-			"repository": {
-				"slug": "pr",
-				"id": 2163,
-				"name": "My Project",
-				"description": "description",
-				"hierarchyId": "a2c98bb349524b2c7ea9",
-				"scmId": "git",
-				"state": "AVAILABLE",
-				"statusMessage": "Available",
-				"forkable": true,
-				"project": {
-					"key": "PR",
-					"id": 1523,
-					"name": "My Project",
-					"description": "description",
-					"public": false,
-					"type": "NORMAL",
-					"links": {
-						"self": [
-							{
-								"href": "https://bitbucket.somewhere.net/projects/PR"
-							}
-						]
-					}
-				},
-				"public": false,
-				"archived": false,
-				"links": {
-					"clone": [
-						{
-							"href": "https://bitbucket.somewhere.net/scm/PR/pr.git",
-							"name": "http"
-						},
-						{
-							"href": "ssh://git@bitbucket.somewhere.net:7999/PR/pr.git",
-							"name": "ssh"
-						}
-					],
-					"self": [
-						{
-							"href": "https://bitbucket.somewhere.net/projects/PR/repos/pr/browse"
-						}
-					]
-				}
-			}
-		},
-		"toRef": {
-			"id": "refs/heads/develop",
-			"displayId": "develop",
-			"latestCommit": "88df62900c16c5df397033e2241db93633a8ad2d",
-			"type": "BRANCH",
-			"repository": {
-				"slug": "pr",
-				"id": 2163,
-				"name": "My Project",
-				"description": "description",
-				"hierarchyId": "a2c98bb349524b2c7ea9",
-				"scmId": "git",
-				"state": "AVAILABLE",
-				"statusMessage": "Available",
-				"forkable": true,
-				"project": {
-					"key": "PR",
-					"id": 1523,
-					"name": "My Project",
-					"description": "description",
-					"public": false,
-					"type": "NORMAL",
-					"links": {
-						"self": [
-							{
-								"href": "https://bitbucket.somewhere.net/projects/PR"
-							}
-						]
-					}
-				},
-				"public": false,
-				"archived": false,
-				"links": {
-					"clone": [
-						{
-							"href": "https://bitbucket.somewhere.net/scm/PR/pr.git",
-							"name": "http"
-						},
-						{
-							"href": "ssh://git@bitbucket.somewhere.net:7999/PR/pr.git",
-							"name": "ssh"
-						}
-					],
-					"self": [
-						{
-							"href": "https://bitbucket.somewhere.net/projects/PR/repos/pr/browse"
-						}
-					]
-				}
-			}
-		},
-		"locked": false,
-		"author": {
-			"user": {
-				"name": "username",
-				"emailAddress": "username@example.net",
-				"active": true,
-				"displayName": "User Name",
-				"id": 6411,
-				"slug": "username",
-				"type": "NORMAL",
-				"links": {
-					"self": [
-						{
-							"href": "https://bitbucket.somewhere.net/users/username"
-						}
-					]
-				}
-			},
-			"role": "AUTHOR",
-			"approved": false,
-			"status": "UNAPPROVED"
-		},
-		"reviewers": [],
-		"participants": [],
-		"links": {
-			"self": [
-				{
-					"href": "https://bitbucket.somewhere.net/projects/PR/repos/pr/pull-requests/154"
-				}
-			]
-		}
-	}
+  "eventKey": "pr:declined",
+  "date": "2023-02-21T11:28:29+0100",
+  "actor": {
+    "name": "username",
+    "emailAddress": "username@example.net",
+    "active": true,
+    "displayName": "User Name",
+    "id": 6411,
+    "slug": "username",
+    "type": "NORMAL",
+    "links": {
+      "self": [
+        {
+          "href": "https://bitbucket.somewhere.net/users/username"
+        }
+      ]
+    }
+  },
+  "pullRequest": {
+    "id": 154,
+    "version": 3,
+    "title": "title",
+    "description": "description",
+    "state": "DECLINED",
+    "open": false,
+    "closed": true,
+    "createdDate": 1676889522119,
+    "updatedDate": 1676975309341,
+    "closedDate": 1676975309341,
+    "fromRef": {
+      "id": "refs/heads/improvement/PR-1304",
+      "displayId": "improvement/PR-1304",
+      "latestCommit": "76fcf17127bc69d37e992020020a87fcf4ec7060",
+      "type": "BRANCH",
+      "repository": {
+        "slug": "pr",
+        "id": 2163,
+        "name": "My Project",
+        "description": "description",
+        "hierarchyId": "a2c98bb349524b2c7ea9",
+        "scmId": "git",
+        "state": "AVAILABLE",
+        "statusMessage": "Available",
+        "forkable": true,
+        "project": {
+          "key": "PR",
+          "id": 1523,
+          "name": "My Project",
+          "description": "description",
+          "public": false,
+          "type": "NORMAL",
+          "links": {
+            "self": [
+              {
+                "href": "https://bitbucket.somewhere.net/projects/PR"
+              }
+            ]
+          }
+        },
+        "public": false,
+        "archived": false,
+        "links": {
+          "clone": [
+            {
+              "href": "https://bitbucket.somewhere.net/scm/PR/pr.git",
+              "name": "http"
+            },
+            {
+              "href": "ssh://git@bitbucket.somewhere.net:7999/PR/pr.git",
+              "name": "ssh"
+            }
+          ],
+          "self": [
+            {
+              "href": "https://bitbucket.somewhere.net/projects/PR/repos/pr/browse"
+            }
+          ]
+        }
+      }
+    },
+    "toRef": {
+      "id": "refs/heads/develop",
+      "displayId": "develop",
+      "latestCommit": "88df62900c16c5df397033e2241db93633a8ad2d",
+      "type": "BRANCH",
+      "repository": {
+        "slug": "pr",
+        "id": 2163,
+        "name": "My Project",
+        "description": "description",
+        "hierarchyId": "a2c98bb349524b2c7ea9",
+        "scmId": "git",
+        "state": "AVAILABLE",
+        "statusMessage": "Available",
+        "forkable": true,
+        "project": {
+          "key": "PR",
+          "id": 1523,
+          "name": "My Project",
+          "description": "description",
+          "public": false,
+          "type": "NORMAL",
+          "links": {
+            "self": [
+              {
+                "href": "https://bitbucket.somewhere.net/projects/PR"
+              }
+            ]
+          }
+        },
+        "public": false,
+        "archived": false,
+        "links": {
+          "clone": [
+            {
+              "href": "https://bitbucket.somewhere.net/scm/PR/pr.git",
+              "name": "http"
+            },
+            {
+              "href": "ssh://git@bitbucket.somewhere.net:7999/PR/pr.git",
+              "name": "ssh"
+            }
+          ],
+          "self": [
+            {
+              "href": "https://bitbucket.somewhere.net/projects/PR/repos/pr/browse"
+            }
+          ]
+        }
+      }
+    },
+    "locked": false,
+    "author": {
+      "user": {
+        "name": "username",
+        "emailAddress": "username@example.net",
+        "active": true,
+        "displayName": "User Name",
+        "id": 6411,
+        "slug": "username",
+        "type": "NORMAL",
+        "links": {
+          "self": [
+            {
+              "href": "https://bitbucket.somewhere.net/users/username"
+            }
+          ]
+        }
+      },
+      "role": "AUTHOR",
+      "approved": false,
+      "status": "UNAPPROVED"
+    },
+    "reviewers": [],
+    "participants": [],
+    "links": {
+      "self": [
+        {
+          "href": "https://bitbucket.somewhere.net/projects/PR/repos/pr/pull-requests/154"
+        }
+      ]
+    }
+  }
 }
