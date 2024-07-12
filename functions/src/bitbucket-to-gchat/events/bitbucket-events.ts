@@ -93,6 +93,7 @@ export interface PullRequest {
   state: PullRequestState;
   open: boolean;
   closed: boolean;
+  draft: boolean;
   createdDate: number;
   updatedDate?: number;
   closedDate?: number;
@@ -118,6 +119,7 @@ export interface PullRequestModifiedEvent extends BasePullRequestEvent {
   previousTitle?: string;
   previousDescription?: string;
   previousTarget?: MergeTarget;
+  previousDraft?: boolean;
 }
 
 export interface PullRequestReviewersUpdatedEvent extends BasePullRequestEvent {

@@ -116,6 +116,7 @@ export const pullRequestSchema = z.object({
   state: pullRequestStateSchema,
   open: z.boolean(),
   closed: z.boolean(),
+  draft: z.boolean(),
   createdDate: z.number(),
   updatedDate: z.number().optional(),
   closedDate: z.number().optional(),
@@ -141,6 +142,7 @@ export const pullRequestModifiedEventSchema = basePullRequestEventSchema.extend(
     previousTitle: z.string().optional(),
     previousDescription: z.string().optional(),
     previousTarget: mergeTargetSchema.optional(),
+    previousDraft: z.boolean().optional(),
   },
 );
 

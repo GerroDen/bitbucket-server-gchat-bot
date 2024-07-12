@@ -25,6 +25,7 @@
     "state": "DECLINED",
     "open": false,
     "closed": true,
+    "draft": false,
     "createdDate": 1676889522119,
     "updatedDate": 1676975309341,
     "closedDate": 1676975309341,

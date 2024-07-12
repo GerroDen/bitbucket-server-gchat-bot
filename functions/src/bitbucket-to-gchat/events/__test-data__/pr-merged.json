@@ -25,6 +25,7 @@
     "state": "MERGED",
     "open": false,
     "closed": true,
+    "draft": false,
     "createdDate": 1679063065955,
     "updatedDate": 1679417803850,
     "closedDate": 1679417803850,

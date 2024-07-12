@@ -25,6 +25,7 @@
     "state": "OPEN",
     "open": true,
     "closed": false,
+    "draft": false,
     "createdDate": 1679424058536,
     "updatedDate": 1679424068862,
     "fromRef": {
