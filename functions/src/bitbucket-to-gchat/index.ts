@@ -44,6 +44,11 @@ export const bitbucketToGChat = onRequest(
       console.debug(`PR #${prId} was deleted and removed message`);
       return;
     }
+    if (event.pullRequest.draft) {
+      await deleteMessage(event);
+      console.debug(`PR #${prId} was marked as draft and removed message`);
+      return;
+    }
     await createOrUpdateMessage(event);
     res.send();
   },
