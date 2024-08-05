@@ -48,6 +48,7 @@
     "prettier": "^3.3.3",
     "ts-to-zod": "^3.10.0",
     "tsc-alias": "^1.8.10",
+    "type-fest": "^4.23.0",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.0.0"
   }
