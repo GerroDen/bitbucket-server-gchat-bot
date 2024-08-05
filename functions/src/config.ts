@@ -2,7 +2,7 @@ import {
   defineSecret,
   defineString,
   projectID,
-} from "firebase-functions/params";
+} from "firebase-functions/params"; // Deployment region for functions
 
 // Deployment region for functions
 export const region = "europe-west3";
@@ -22,16 +22,6 @@ export const bitbucketBaseUrl = defineString("BITBUCKET_BASE_URL", {
  * ID of the used firebase project
  */
 export const firebaseProjectId = projectID;
-
-/**
- * The Firebase project ID for token verification of Google chat requests.
- * @see https://developers.google.com/chat/how-tos/apps-develop?hl=en#verify_app_authenticity
- */
-export const chatbotProjectId = defineString("CHATBOT_PROJECT_ID", {
-  label: "Chatbot project ID",
-  description:
-    "The Firebase project ID for token verification of Google chat requests. See https://developers.google.com/chat/how-tos/apps-develop?hl=en#verify_app_authenticity",
-});
 
 /**
  * A secret to verify Bitbucket requests.

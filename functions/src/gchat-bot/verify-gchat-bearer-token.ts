@@ -2,7 +2,7 @@ import JwksClient from "jwks-rsa";
 import { Request } from "firebase-functions/v2/https";
 import { logger } from "firebase-functions/v2";
 import { decode, verify } from "jsonwebtoken";
-import { chatbotProjectId, chatIssuer, jwksUri } from "@/config";
+import { chatIssuer, firebaseProjectId, jwksUri } from "@/config";
 
 const issuer = chatIssuer;
 const bearerPrefix = "Bearer ";
@@ -26,8 +26,8 @@ export async function verifyGChatBearerToken(req: Request): Promise<boolean> {
   try {
     const key = await jwksClient.getSigningKey(decodedToken?.header.kid);
     const publicKey = key.getPublicKey();
-    await verify(token, publicKey, {
-      audience: chatbotProjectId.value(),
+    verify(token, publicKey, {
+      audience: firebaseProjectId.value(),
       issuer,
     });
     return true;
