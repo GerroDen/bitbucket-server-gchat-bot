@@ -29,8 +29,7 @@ export const bitbucketToGChat = onRequest(
       const parseResult = bitbucketEventSchema.safeParse(req.body);
       if (!parseResult.success) {
         console.debug(`invalid body`, parseResult.error);
-        res.status(400);
-        res.send(parseResult.error);
+        res.status(400).send(parseResult.error);
         return;
       }
       const event: BitbucketEvent = parseResult.data;
@@ -54,7 +53,7 @@ export const bitbucketToGChat = onRequest(
       res.send();
     } catch (e) {
       console.error("unknown error", e);
-      res.sendStatus(500);
+      res.status(500).send("unknown error");
     }
   },
 );
