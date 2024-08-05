@@ -1,3 +1,5 @@
+import { LiteralUnion } from "type-fest";
+
 export interface BasePullRequestEvent {
   eventKey: string;
   date: string;
@@ -5,7 +7,7 @@ export interface BasePullRequestEvent {
   pullRequest: PullRequest;
 }
 
-export type BitbucketUserType = "NORMAL" | "SERVICE" | string;
+export type BitbucketUserType = LiteralUnion<"NORMAL" | "SERVICE", string>;
 
 export interface BitbucketUser {
   name: string;
@@ -69,11 +71,14 @@ export interface GitRef {
   type?: RefType;
 }
 
-export type ApprovalState = "APPROVED" | "UNAPPROVED" | "NEEDS_WORK" | string;
+export type ApprovalState = LiteralUnion<
+  "APPROVED" | "UNAPPROVED" | "NEEDS_WORK",
+  string
+>;
 
-export type RefType = "BRANCH" | string;
+export type RefType = LiteralUnion<"BRANCH", string>;
 
-export type ParticipantRole = "AUTHOR" | "REVIEWER" | string;
+export type ParticipantRole = LiteralUnion<"AUTHOR" | "REVIEWER", string>;
 
 export interface Participant {
   user: BitbucketUser;
@@ -83,7 +88,10 @@ export interface Participant {
   lastReviewedCommit?: string;
 }
 
-export type PullRequestState = "MERGED" | "OPEN" | "DECLINED" | string;
+export type PullRequestState = LiteralUnion<
+  "MERGED" | "OPEN" | "DECLINED",
+  string
+>;
 
 export interface PullRequest {
   id: number;

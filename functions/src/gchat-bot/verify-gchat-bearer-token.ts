@@ -32,7 +32,7 @@ export async function verifyGChatBearerToken(req: Request): Promise<boolean> {
     });
     return true;
   } catch (e) {
-    logger.error(`invalid bearer token: ${e}`);
+    logger.error(`invalid bearer token`, e);
     return false;
   }
 }

@@ -7,6 +7,7 @@ import {
   pullRequestReviewersUpdatedEventSchema,
 } from "@/bitbucket-to-gchat/events/bitbucket-events-schema";
 import * as path from "path";
+import { JsonValue } from "type-fest";
 
 describe("bitbucket-events-schema", () => {
   describe("bitbucketEventSchema", () => {
@@ -15,7 +16,7 @@ describe("bitbucket-events-schema", () => {
     });
     for (const eventDataFile of eventDataFiles) {
       it(`parses ${path.basename(eventDataFile)}`, async () => {
-        const eventData = await import("./" + eventDataFile);
+        const eventData = (await import("./" + eventDataFile)) as JsonValue;
 
         const result = bitbucketEventSchema.parse(eventData);
 

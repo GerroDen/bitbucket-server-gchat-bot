@@ -31,7 +31,7 @@ export async function deleteMessage(event: PullRequestEvent): Promise<void> {
   try {
     await chat.spaces.messages.delete({ name: messageName });
     console.debug(`deleted message for PR #${prId}`);
-  } catch (e) {
+  } catch {
     console.debug(`no need to delete message for PR #${prId}`);
   }
 }
