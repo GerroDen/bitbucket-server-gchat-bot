@@ -1,15 +1,18 @@
 import js from "@eslint/js";
 import importX from "eslint-plugin-import-x";
-import globals from "globals";
 import tseslint from "typescript-eslint";
 import prettier from "eslint-plugin-prettier/recommended";
+import globals from "globals";
 
 export default tseslint.config(
+  { ignores: ["dist/**"] },
   js.configs.recommended,
-  importX.configs.typescript,
-  ...tseslint.configs.recommendedTypeChecked,
   {
-    ignores: ["dist/**"],
+    files: ["**/*.ts"],
+    extends: [
+      importX.configs.typescript,
+      ...tseslint.configs.recommendedTypeChecked,
+    ],
     languageOptions: {
       ecmaVersion: "latest",
       globals: {
