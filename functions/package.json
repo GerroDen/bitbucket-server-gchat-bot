@@ -7,7 +7,7 @@
     "node": "20"
   },
   "scripts": {
-    "build": "tsc && tsc-alias",
+    "build": "tsc && tsc-alias -f",
     "deploy": "firebase deploy --only functions",
     "gen-schema": "ts-to-zod src/bitbucket-to-gchat/events/bitbucket-events.ts src/bitbucket-to-gchat/events/bitbucket-events-schema.ts",
     "lint": "eslint . --quiet",
