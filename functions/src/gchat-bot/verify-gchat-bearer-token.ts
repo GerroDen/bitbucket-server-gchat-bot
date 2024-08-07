@@ -1,7 +1,6 @@
 import JwksClient from "jwks-rsa";
 import { Request } from "firebase-functions/v2/https";
 import { logger } from "firebase-functions/v2";
-import { decode, verify } from "jsonwebtoken";
 import { chatIssuer, firebaseProjectId, jwksUri } from "@/config";
 
 const issuer = chatIssuer;
@@ -13,6 +12,7 @@ const jwksClient = JwksClient({ jwksUri });
  * @see https://developers.google.com/chat/how-tos/apps-develop?hl=en#verify_app_authenticity
  */
 export async function verifyGChatBearerToken(req: Request): Promise<boolean> {
+  const { decode, verify } = await import("jsonwebtoken");
   const authorizationHeader = req.header("Authorization");
   if (!authorizationHeader?.startsWith(bearerPrefix)) {
     return false;
