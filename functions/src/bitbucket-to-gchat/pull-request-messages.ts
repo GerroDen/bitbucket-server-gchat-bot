@@ -80,8 +80,9 @@ interface MessageIds {
 async function buildIds(
   event: PullRequestEvent,
 ): Promise<MessageIds | undefined> {
-  const projectKey = event.pullRequest.fromRef.repository.project.key;
-  const repositorySlug = event.pullRequest.fromRef.repository.slug;
+  const repository = event.pullRequest.fromRef.repository;
+  const projectKey = repository.project.key;
+  const repositorySlug = repository.slug;
   const repositoryData = await findRepositoryData({
     projectKey,
     repositorySlug,
@@ -91,7 +92,7 @@ async function buildIds(
   }
   const prId = event.pullRequest.id;
   const parent = repositoryData.spaceName;
-  const messageId = `client-pr-${event.pullRequest.id}`;
+  const messageId = `client-pr-${repositorySlug}-${event.pullRequest.id}`;
   const messageName = `${parent}/messages/${messageId}`;
   return {
     prId,
@@ -120,10 +121,11 @@ function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
   const needsWorkCount = event.pullRequest.reviewers.filter(
     (reviewer) => reviewer.status === "NEEDS_WORK",
   ).length;
-  const url = `${bitbucketBaseUrl.value()}/projects/${event.pullRequest.toRef.repository.project.key}/repos/${event.pullRequest.toRef.repository.slug}/pull-requests/${prId}`;
+  const repository = event.pullRequest.toRef.repository;
+  const url = `${bitbucketBaseUrl.value()}/projects/${repository.project.key}/repos/${repository.slug}/pull-requests/${prId}`;
   const publicBaseUrl = `https://${firebaseProjectId.value()}.web.app`;
   return {
-    text: `PR #${prId}: ${event.pullRequest.title}`,
+    text: `${repository.name} PR #${prId}: ${event.pullRequest.title}`,
     cardsV2: [
       {
         cardId: "pr",
