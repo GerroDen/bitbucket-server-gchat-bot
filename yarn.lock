@@ -1659,6 +1659,87 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@typescript/native-preview-darwin-arm64@npm:7.0.0-dev.20260210.1":
+  version: 7.0.0-dev.20260210.1
+  resolution: "@typescript/native-preview-darwin-arm64@npm:7.0.0-dev.20260210.1"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@typescript/native-preview-darwin-x64@npm:7.0.0-dev.20260210.1":
+  version: 7.0.0-dev.20260210.1
+  resolution: "@typescript/native-preview-darwin-x64@npm:7.0.0-dev.20260210.1"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@typescript/native-preview-linux-arm64@npm:7.0.0-dev.20260210.1":
+  version: 7.0.0-dev.20260210.1
+  resolution: "@typescript/native-preview-linux-arm64@npm:7.0.0-dev.20260210.1"
+  conditions: os=linux & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@typescript/native-preview-linux-arm@npm:7.0.0-dev.20260210.1":
+  version: 7.0.0-dev.20260210.1
+  resolution: "@typescript/native-preview-linux-arm@npm:7.0.0-dev.20260210.1"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@typescript/native-preview-linux-x64@npm:7.0.0-dev.20260210.1":
+  version: 7.0.0-dev.20260210.1
+  resolution: "@typescript/native-preview-linux-x64@npm:7.0.0-dev.20260210.1"
+  conditions: os=linux & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@typescript/native-preview-win32-arm64@npm:7.0.0-dev.20260210.1":
+  version: 7.0.0-dev.20260210.1
+  resolution: "@typescript/native-preview-win32-arm64@npm:7.0.0-dev.20260210.1"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@typescript/native-preview-win32-x64@npm:7.0.0-dev.20260210.1":
+  version: 7.0.0-dev.20260210.1
+  resolution: "@typescript/native-preview-win32-x64@npm:7.0.0-dev.20260210.1"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@typescript/native-preview@npm:^7.0.0-dev.20260210.1":
+  version: 7.0.0-dev.20260210.1
+  resolution: "@typescript/native-preview@npm:7.0.0-dev.20260210.1"
+  dependencies:
+    "@typescript/native-preview-darwin-arm64": "npm:7.0.0-dev.20260210.1"
+    "@typescript/native-preview-darwin-x64": "npm:7.0.0-dev.20260210.1"
+    "@typescript/native-preview-linux-arm": "npm:7.0.0-dev.20260210.1"
+    "@typescript/native-preview-linux-arm64": "npm:7.0.0-dev.20260210.1"
+    "@typescript/native-preview-linux-x64": "npm:7.0.0-dev.20260210.1"
+    "@typescript/native-preview-win32-arm64": "npm:7.0.0-dev.20260210.1"
+    "@typescript/native-preview-win32-x64": "npm:7.0.0-dev.20260210.1"
+  dependenciesMeta:
+    "@typescript/native-preview-darwin-arm64":
+      optional: true
+    "@typescript/native-preview-darwin-x64":
+      optional: true
+    "@typescript/native-preview-linux-arm":
+      optional: true
+    "@typescript/native-preview-linux-arm64":
+      optional: true
+    "@typescript/native-preview-linux-x64":
+      optional: true
+    "@typescript/native-preview-win32-arm64":
+      optional: true
+    "@typescript/native-preview-win32-x64":
+      optional: true
+  bin:
+    tsgo: bin/tsgo.js
+  checksum: 10c0/ab5e6af2b461d36eb0048a6baac5b9984fbc65492d7c81e3cfe5b34b8af92cb76c91c7798042d063646433f8aa7c11256638e7f80137bce05538d3f498495cb3
+  languageName: node
+  linkType: hard
+
 "@typescript/vfs@npm:^1.5.0":
   version: 1.6.2
   resolution: "@typescript/vfs@npm:1.6.2"
@@ -4216,6 +4297,7 @@ __metadata:
     "@tsconfig/node20": "npm:^20.1.4"
     "@types/jest": "npm:^29.5.12"
     "@types/jsonwebtoken": "npm:^9.0.6"
+    "@typescript/native-preview": "npm:^7.0.0-dev.20260210.1"
     fast-glob: "npm:^3.3.2"
     firebase-admin: "npm:^12.3.0"
     firebase-functions: "npm:^5.0.1"
@@ -4228,7 +4310,6 @@ __metadata:
     ts-to-zod: "npm:^3.10.0"
     tsc-alias: "npm:^1.8.10"
     type-fest: "npm:^4.23.0"
-    typescript: "npm:^5.5.4"
     zod: "npm:^3.23.8"
   languageName: unknown
   linkType: soft
@@ -9368,7 +9449,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.2.2, typescript@npm:^5.5.4":
+"typescript@npm:^5.2.2":
   version: 5.9.3
   resolution: "typescript@npm:5.9.3"
   bin:
@@ -9378,7 +9459,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.2.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.5.4#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5.2.2#optional!builtin<compat/typescript>":
   version: 5.9.3
   resolution: "typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"
   bin:

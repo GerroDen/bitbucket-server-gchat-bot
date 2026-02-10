@@ -27,6 +27,7 @@
     "@tsconfig/node20": "^20.1.4",
     "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.6",
+    "@typescript/native-preview": "^7.0.0-dev.20260210.1",
     "fast-glob": "^3.3.2",
     "firebase-functions-test": "^3.3.0",
     "globals": "^15.9.0",
@@ -34,8 +35,7 @@
     "jest-extended": "^4.0.2",
     "ts-to-zod": "^3.10.0",
     "tsc-alias": "^1.8.10",
-    "type-fest": "^4.23.0",
-    "typescript": "^5.5.4"
+    "type-fest": "^4.23.0"
   },
   "engines": {
     "node": "20"
