@@ -7,12 +7,10 @@
     "build": "tsc && tsc-alias -f",
     "deploy": "firebase deploy --only functions",
     "gen-schema": "ts-to-zod src/bitbucket-to-gchat/events/bitbucket-events.ts src/bitbucket-to-gchat/events/bitbucket-events-schema.ts",
-    "lint": "eslint . --quiet",
     "logs": "firebase functions:log",
-    "serve": "npm run build && firebase emulators:start --only functions",
-    "shell": "npm run build && firebase functions:shell",
-    "start": "npm run shell",
-    "test": "jest"
+    "serve": "yarn build && firebase emulators:start --only functions",
+    "start": "yarn build && firebase functions:shell",
+    "test": "vitest"
   },
   "dependencies": {
     "@googleapis/chat": "^27.0.0",
@@ -23,17 +21,15 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@swc/jest": "^0.2.36",
     "@tsconfig/node22": "^22.0.5",
-    "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.6",
     "@typescript/native-preview": "^7.0.0-dev.20260210.1",
     "fast-glob": "^3.3.2",
     "firebase-functions-test": "^3.3.0",
-    "jest": "^29.7.0",
-    "jest-extended": "^4.0.2",
     "ts-to-zod": "^5.1.0",
     "tsc-alias": "^1.8.16",
-    "type-fest": "^5.4.4"
+    "type-fest": "^5.4.4",
+    "vite-tsconfig-paths": "^6.1.0",
+    "vitest": "^4.0.18"
   }
 }

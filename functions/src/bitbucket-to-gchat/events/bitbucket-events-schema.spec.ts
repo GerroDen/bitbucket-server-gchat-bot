@@ -8,6 +8,7 @@ import {
 } from "@/bitbucket-to-gchat/events/bitbucket-events-schema";
 import { basename } from "path";
 import { JsonValue } from "type-fest";
+import { describe, expect, it } from "vitest";
 
 describe("bitbucket-events-schema", () => {
   describe("bitbucketEventSchema", () => {
