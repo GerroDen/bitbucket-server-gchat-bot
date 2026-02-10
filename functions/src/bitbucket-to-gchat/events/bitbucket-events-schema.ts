@@ -7,7 +7,7 @@ export const bitbucketUserTypeSchema = z.union([
   z.string(),
 ]);
 
-const linkEntrySchema = z.record(z.string()).nullable();
+const linkEntrySchema = z.record(z.string(), z.string()).nullable();
 
 export const refTypeSchema = z.union([z.literal("BRANCH"), z.string()]);
 
@@ -39,7 +39,7 @@ export const mergeTargetSchema = z.object({
   latestChangeset: z.string(),
 });
 
-export const linksSchema = z.record(z.array(linkEntrySchema));
+export const linksSchema = z.record(z.string(), z.array(linkEntrySchema));
 
 export const baseProjectSchema = z.object({
   key: z.string(),
