@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc && tsc-alias -f",
+    "lint": "tsc --noEmit",
     "deploy": "firebase deploy --only functions",
     "gen-schema": "ts-to-zod src/bitbucket-to-gchat/events/bitbucket-events.ts src/bitbucket-to-gchat/events/bitbucket-events-schema.ts",
     "logs": "firebase functions:log",
@@ -14,8 +15,8 @@
   },
   "dependencies": {
     "@googleapis/chat": "^27.0.0",
-    "firebase-admin": "^12.3.0",
-    "firebase-functions": "^5.0.1",
+    "firebase-admin": "^13.6.1",
+    "firebase-functions": "^7.0.5",
     "jsonwebtoken": "^9.0.2",
     "jwks-rsa": "^3.1.0",
     "zod": "^3.23.8"

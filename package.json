@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "build": "yarn workspaces foreach -Ap run build",
-    "lint": "oxlint",
+    "lint": "oxlint --type-aware && yarn workspaces foreach -Ap run lint",
     "fmt": "oxfmt"
   },
   "dependencies": {
@@ -17,5 +17,8 @@
     "node": ">=24",
     "yarn": ">=4.12.0"
   },
-  "packageManager": "yarn@4.12.0"
+  "packageManager": "yarn@4.12.0",
+  "devDependencies": {
+    "oxlint-tsgolint": "^0.11.5"
+  }
 }
