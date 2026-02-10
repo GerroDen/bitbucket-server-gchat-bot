@@ -10,8 +10,8 @@
     "build": "gulp"
   },
   "devDependencies": {
-    "@types/gulp": "^4.0.13",
-    "gulp": "^4.0.2",
+    "@types/gulp": "^4.0.18",
+    "gulp": "^5.0.1",
     "gulp-svg2png": "^2.0.2"
   }
 }
