@@ -4,7 +4,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "build": "vite build",
+    "build": "tsc && tsc-alias -f",
     "lint": "tsgo --noEmit",
     "deploy": "firebase deploy --only functions",
     "gen-schema": "ts-to-zod src/bitbucket-to-gchat/events/bitbucket-events.ts src/bitbucket-to-gchat/events/bitbucket-events-schema.ts",
@@ -30,7 +30,6 @@
     "ts-to-zod": "^5.1.0",
     "tsc-alias": "^1.8.16",
     "type-fest": "^5.4.4",
-    "vite": "npm:rolldown-vite@^7.3.1",
     "vite-tsconfig-paths": "^6.1.0",
     "vitest": "^4.0.18"
   }
