@@ -4,7 +4,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc && tsc-alias -f",
+    "build": "rm -Rf dist && tsgo -p tsconfig.build.json && tsc-alias -f",
     "lint": "tsgo --noEmit",
     "deploy": "firebase deploy --only functions",
     "gen-schema": "ts-to-zod src/bitbucket-to-gchat/events/bitbucket-events.ts src/bitbucket-to-gchat/events/bitbucket-events-schema.ts",
