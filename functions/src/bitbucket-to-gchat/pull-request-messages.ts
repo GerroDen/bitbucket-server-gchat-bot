@@ -36,9 +36,7 @@ export async function deleteMessage(event: PullRequestEvent): Promise<void> {
   }
 }
 
-export async function createOrUpdateMessage(
-  event: PullRequestEvent,
-): Promise<void> {
+export async function createOrUpdateMessage(event: PullRequestEvent): Promise<void> {
   const ids = await buildIds(event);
   if (!ids) {
     console.debug(`Skipping event`);
@@ -77,9 +75,7 @@ interface MessageIds {
   messageName: string;
 }
 
-async function buildIds(
-  event: PullRequestEvent,
-): Promise<MessageIds | undefined> {
+async function buildIds(event: PullRequestEvent): Promise<MessageIds | undefined> {
   const repository = event.pullRequest.fromRef.repository;
   const projectKey = repository.project.key;
   const repositorySlug = repository.slug;
@@ -133,8 +129,7 @@ function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
           header: {
             title: `PR #${prId}`,
             subtitle: event.pullRequest.title,
-            imageUrl:
-              publicBaseUrl + pullRequestIconsPath[event.pullRequest.state],
+            imageUrl: publicBaseUrl + pullRequestIconsPath[event.pullRequest.state],
             imageAltText: event.pullRequest.state,
           },
           sections: [
@@ -160,8 +155,7 @@ function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
                             decoratedText: {
                               startIcon: {
                                 altText: "approved",
-                                iconUrl:
-                                  publicBaseUrl + approvalIconsPath.APPROVED,
+                                iconUrl: publicBaseUrl + approvalIconsPath.APPROVED,
                               },
                               topLabel: "approved",
                               text: `${approvedCount}`,
@@ -175,8 +169,7 @@ function buildMessage(event: PullRequestEvent): chat_v1.Schema$Message {
                             decoratedText: {
                               startIcon: {
                                 altText: "needs work",
-                                iconUrl:
-                                  publicBaseUrl + approvalIconsPath.NEEDS_WORK,
+                                iconUrl: publicBaseUrl + approvalIconsPath.NEEDS_WORK,
                               },
                               topLabel: "needs work",
                               text: `${needsWorkCount}`,

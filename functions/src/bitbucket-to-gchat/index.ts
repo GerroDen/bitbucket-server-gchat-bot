@@ -6,10 +6,7 @@ import {
 } from "@/bitbucket-to-gchat/verify-bitbucket-request";
 import { BitbucketEvent } from "@/bitbucket-to-gchat/events/bitbucket-events";
 import { bitbucketEventSchema } from "@/bitbucket-to-gchat/events/bitbucket-events-schema";
-import {
-  createOrUpdateMessage,
-  deleteMessage,
-} from "@/bitbucket-to-gchat/pull-request-messages";
+import { createOrUpdateMessage, deleteMessage } from "@/bitbucket-to-gchat/pull-request-messages";
 
 export const bitbucketToGChat = onRequest(
   { secrets: [bitbucketSecret] },

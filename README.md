@@ -11,38 +11,38 @@ Every update to the pull request updates the message from this Google Chat App.
 
 1. Create a dedicated user in Bitbucket to use for requests and generate a token
 2. Generate a secret, something like a random password with a generator of your choice and write it down. We need a secret between Bitbucket Server and the Firebase functions for validation.
-2. Create a Firebase project and edit `.firebaserc` to change the default project to your Firebase project.
-3. Go to your Google Project and enable the [Google Chat API](https://console.cloud.google.com/marketplace/product/google/chat.googleapis.com).
-4. Deploy you project for the first time
-    1. When prompted enter
-        1. the secret,
-        2. the Google project ID of your Firebase project in Google Cloud Console,
-        3. the base URL to your bitbucket server
-        4. the bitbucket user
-        5. the personal access token of that user
-    2. All secrets are automatically stored within Google's secret manager and all other fields as environment variables for the Firebase functions
-    3. Copy the endpoint URL of the Firebase function.
-5. Go back to your Google Project and manage the [Google Chat API](https://console.cloud.google.com/marketplace/product/google/chat.googleapis.com).
-6. Go to "Configure" and insert name, avatar (as dummy you can use https://goo.gl/yKKjbw), and description.
+3. Create a Firebase project and edit `.firebaserc` to change the default project to your Firebase project.
+4. Go to your Google Project and enable the [Google Chat API](https://console.cloud.google.com/marketplace/product/google/chat.googleapis.com).
+5. Deploy you project for the first time
+   1. When prompted enter
+      1. the secret,
+      2. the Google project ID of your Firebase project in Google Cloud Console,
+      3. the base URL to your bitbucket server
+      4. the bitbucket user
+      5. the personal access token of that user
+   2. All secrets are automatically stored within Google's secret manager and all other fields as environment variables for the Firebase functions
+   3. Copy the endpoint URL of the Firebase function.
+6. Go back to your Google Project and manage the [Google Chat API](https://console.cloud.google.com/marketplace/product/google/chat.googleapis.com).
+7. Go to "Configure" and insert name, avatar (as dummy you can use https://goo.gl/yKKjbw), and description.
    Choose if it should repond to direct messages or room mentions.
    (not yet: Choose the "bot url" with the Firebase function's endpoint url that you just deployed. And at last restrict the access to certain users or the whole organisation.)
-7. Start the reporting by configuring repo and bot per repository in the next section
+8. Start the reporting by configuring repo and bot per repository in the next section
 
 # Let the bot report
 
 8. Go to your Bitbucket server repository and create a webhook with
-    1. the generated shared secret
-    2. the function's endpoint URL
-    3. enabled for
-        1. PR opened / reopened,
-        2. PR modified,
-        3. reviewer updated,
-        4. reviewer approved,
-        5. reviewer unapproved,
-        6. reviewer needs work,
-        7. PR merged,
-        8. PR declined and
-        9. PR deleted
+   1. the generated shared secret
+   2. the function's endpoint URL
+   3. enabled for
+      1. PR opened / reopened,
+      2. PR modified,
+      3. reviewer updated,
+      4. reviewer approved,
+      5. reviewer unapproved,
+      6. reviewer needs work,
+      7. PR merged,
+      8. PR declined and
+      9. PR deleted
 9. Mention or add the Bot within any Google chat channel with `/add <project key> <repo slug>` to let him report PRs with reviewers to that channel
 
 The complete webhook config:

@@ -71,10 +71,7 @@ export const personalProjectSchema = baseProjectSchema.extend({
   owner: bitbucketUserSchema,
 });
 
-export const projectSchema = z.union([
-  personalProjectSchema,
-  normalProjectSchema,
-]);
+export const projectSchema = z.union([personalProjectSchema, normalProjectSchema]);
 
 const repositorySchema = z.object({
   slug: z.string(),
@@ -136,34 +133,29 @@ export const basePullRequestEventSchema = z.object({
   pullRequest: pullRequestSchema,
 });
 
-export const pullRequestModifiedEventSchema = basePullRequestEventSchema.extend(
-  {
-    eventKey: z.literal("pr:modified"),
-    previousTitle: z.string().optional(),
-    previousDescription: z.string().optional(),
-    previousTarget: mergeTargetSchema.optional(),
-    previousDraft: z.boolean().optional(),
-  },
-);
+export const pullRequestModifiedEventSchema = basePullRequestEventSchema.extend({
+  eventKey: z.literal("pr:modified"),
+  previousTitle: z.string().optional(),
+  previousDescription: z.string().optional(),
+  previousTarget: mergeTargetSchema.optional(),
+  previousDraft: z.boolean().optional(),
+});
 
-export const pullRequestReviewersUpdatedEventSchema =
-  basePullRequestEventSchema.extend({
-    eventKey: z.literal("pr:reviewer:updated"),
-    addedReviewers: z.array(bitbucketUserSchema),
-    removedReviewers: z.array(bitbucketUserSchema),
-  });
+export const pullRequestReviewersUpdatedEventSchema = basePullRequestEventSchema.extend({
+  eventKey: z.literal("pr:reviewer:updated"),
+  addedReviewers: z.array(bitbucketUserSchema),
+  removedReviewers: z.array(bitbucketUserSchema),
+});
 
-export const pullRequestApprovalEventSchema = basePullRequestEventSchema.extend(
-  {
-    eventKey: z.union([
-      z.literal("pr:reviewer:approved"),
-      z.literal("pr:reviewer:unapproved"),
-      z.literal("pr:reviewer:needs_work"),
-    ]),
-    participant: participantSchema,
-    previousStatus: approvalStateSchema,
-  },
-);
+export const pullRequestApprovalEventSchema = basePullRequestEventSchema.extend({
+  eventKey: z.union([
+    z.literal("pr:reviewer:approved"),
+    z.literal("pr:reviewer:unapproved"),
+    z.literal("pr:reviewer:needs_work"),
+  ]),
+  participant: participantSchema,
+  previousStatus: approvalStateSchema,
+});
 
 export const pullRequestMergedEventSchema = basePullRequestEventSchema.extend({
   eventKey: z.literal("pr:merged"),
@@ -187,11 +179,9 @@ export const pullRequestOpenedEventSchema = basePullRequestEventSchema.extend({
   eventKey: z.literal("pr:opened"),
 });
 
-export const pullRequestDeclinedEventSchema = basePullRequestEventSchema.extend(
-  {
-    eventKey: z.literal("pr:declined"),
-  },
-);
+export const pullRequestDeclinedEventSchema = basePullRequestEventSchema.extend({
+  eventKey: z.literal("pr:declined"),
+});
 
 export const pullRequestEventSchema = z.union([
   pullRequestOpenedEventSchema,

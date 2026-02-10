@@ -11,14 +11,10 @@ export type RepositoryData = RepositoryLocator & {
 };
 
 export function repositoryDataCollection(): CollectionReference<RepositoryData> {
-  return getFirestore()
-    .collection("repositories")
-    .withConverter(cast<RepositoryData>());
+  return getFirestore().collection("repositories").withConverter(cast<RepositoryData>());
 }
 
-export async function addRepositoryDataIfMissing(
-  repo: RepositoryData,
-): Promise<void> {
+export async function addRepositoryDataIfMissing(repo: RepositoryData): Promise<void> {
   const { projectKey, repositorySlug, spaceName } = repo;
   const repoData = await repositoryDataCollection()
     .where("projectKey", "==", projectKey)
@@ -32,9 +28,7 @@ export async function addRepositoryDataIfMissing(
 export async function findRepositoryData({
   projectKey,
   repositorySlug,
-}: Pick<RepositoryData, "repositorySlug" | "projectKey">): Promise<
-  RepositoryData | undefined
-> {
+}: Pick<RepositoryData, "repositorySlug" | "projectKey">): Promise<RepositoryData | undefined> {
   const snapshot = await repositoryDataCollection()
     .where("projectKey", "==", projectKey)
     .where("repositorySlug", "==", repositorySlug)

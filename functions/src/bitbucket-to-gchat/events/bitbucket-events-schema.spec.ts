@@ -27,9 +27,8 @@ describe("bitbucket-events-schema", () => {
 
   describe("pullRequestApprovalEventSchema", () => {
     it("parses reviewer approved event", async () => {
-      const eventData = await import(
-        "@/bitbucket-to-gchat/events/__test-data__/pr-reviewer-approved.json"
-      );
+      const eventData =
+        await import("@/bitbucket-to-gchat/events/__test-data__/pr-reviewer-approved.json");
 
       const result = pullRequestApprovalEventSchema.parse(eventData);
 
@@ -37,9 +36,8 @@ describe("bitbucket-events-schema", () => {
     });
 
     it("parses reviewer needs work event", async () => {
-      const eventData = await import(
-        "@/bitbucket-to-gchat/events/__test-data__/pr-reviewer-needs-work.json"
-      );
+      const eventData =
+        await import("@/bitbucket-to-gchat/events/__test-data__/pr-reviewer-needs-work.json");
 
       const result = pullRequestApprovalEventSchema.parse(eventData);
 
@@ -49,9 +47,8 @@ describe("bitbucket-events-schema", () => {
 
   describe("pullRequestReviewersUpdatedEventSchema", () => {
     it("parses reviewer updated event", async () => {
-      const eventData = await import(
-        "@/bitbucket-to-gchat/events/__test-data__/pr-reviewer-updated.json"
-      );
+      const eventData =
+        await import("@/bitbucket-to-gchat/events/__test-data__/pr-reviewer-updated.json");
 
       const result = pullRequestReviewersUpdatedEventSchema.parse(eventData);
 
@@ -61,9 +58,7 @@ describe("bitbucket-events-schema", () => {
 
   describe("pullRequestModifiedEventSchema", () => {
     it("parses pr modified event", async () => {
-      const eventData = await import(
-        "@/bitbucket-to-gchat/events/__test-data__/pr-modified.json"
-      );
+      const eventData = await import("@/bitbucket-to-gchat/events/__test-data__/pr-modified.json");
 
       const result = pullRequestModifiedEventSchema.parse(eventData);
 

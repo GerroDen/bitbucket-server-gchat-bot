@@ -71,10 +71,7 @@ export interface GitRef {
   type?: RefType;
 }
 
-export type ApprovalState = LiteralUnion<
-  "APPROVED" | "UNAPPROVED" | "NEEDS_WORK",
-  string
->;
+export type ApprovalState = LiteralUnion<"APPROVED" | "UNAPPROVED" | "NEEDS_WORK", string>;
 
 export type RefType = LiteralUnion<"BRANCH", string>;
 
@@ -88,10 +85,7 @@ export interface Participant {
   lastReviewedCommit?: string;
 }
 
-export type PullRequestState = LiteralUnion<
-  "MERGED" | "OPEN" | "DECLINED",
-  string
->;
+export type PullRequestState = LiteralUnion<"MERGED" | "OPEN" | "DECLINED", string>;
 
 export interface PullRequest {
   id: number;
@@ -137,10 +131,7 @@ export interface PullRequestReviewersUpdatedEvent extends BasePullRequestEvent {
 }
 
 export interface PullRequestApprovalEvent extends BasePullRequestEvent {
-  eventKey:
-    | "pr:reviewer:approved"
-    | "pr:reviewer:unapproved"
-    | "pr:reviewer:needs_work";
+  eventKey: "pr:reviewer:approved" | "pr:reviewer:unapproved" | "pr:reviewer:needs_work";
   participant: Participant;
   previousStatus: ApprovalState;
 }

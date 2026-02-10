@@ -26,9 +26,7 @@ export const gchatBot = onRequest(async (req, res): Promise<void> => {
       if (command === "/add") {
         const { projectKey, repositorySlug } = addCommandArgsSplit(argsString);
         if (!projectKey || !repositorySlug) {
-          console.debug(
-            `/add: missing projectKey or repositorySlug in "${argsString}"`,
-          );
+          console.debug(`/add: missing projectKey or repositorySlug in "${argsString}"`);
           res.send(missingArguments(command));
           return;
         }

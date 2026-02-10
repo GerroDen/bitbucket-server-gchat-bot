@@ -7,10 +7,7 @@ const signatureHeaderPrefix = "sha256=";
 
 export function verifyBitbucketRequest(req: Request): boolean {
   const requestSignature = req.header(signatureHeader)?.trim();
-  if (
-    !requestSignature ||
-    !requestSignature?.startsWith(signatureHeaderPrefix)
-  ) {
+  if (!requestSignature || !requestSignature?.startsWith(signatureHeaderPrefix)) {
     return false;
   }
   const hmac = createHmac("sha256", bitbucketSecret.value());

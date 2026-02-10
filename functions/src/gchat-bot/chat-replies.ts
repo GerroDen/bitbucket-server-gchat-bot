@@ -1,8 +1,5 @@
 import { chat_v1 } from "@googleapis/chat";
-import {
-  addCommandSignature,
-  RepositoryLocator,
-} from "@/gchat-bot/chat-commands";
+import { addCommandSignature, RepositoryLocator } from "@/gchat-bot/chat-commands";
 
 export function help(): chat_v1.Schema$Message {
   return {
@@ -10,10 +7,7 @@ export function help(): chat_v1.Schema$Message {
   };
 }
 
-export function added({
-  projectKey,
-  repositorySlug,
-}: RepositoryLocator): chat_v1.Schema$Message {
+export function added({ projectKey, repositorySlug }: RepositoryLocator): chat_v1.Schema$Message {
   return {
     text: `I will now send you pull requests from repository ${repositorySlug} within project ${projectKey}`,
   };

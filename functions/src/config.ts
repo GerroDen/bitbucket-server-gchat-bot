@@ -1,8 +1,4 @@
-import {
-  defineSecret,
-  defineString,
-  projectID,
-} from "firebase-functions/params"; // Deployment region for functions
+import { defineSecret, defineString, projectID } from "firebase-functions/params"; // Deployment region for functions
 
 // Deployment region for functions
 export const region = "europe-west3";
