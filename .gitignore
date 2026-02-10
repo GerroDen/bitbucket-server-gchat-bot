@@ -1,22 +1,7 @@
-# Logs
-logs
-*.log*
-
-# output dir
-dist/
-
-# Firebase cache
-.firebase/
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Dependency directories
+.*/*
+!.yarn/releases
 node_modules/
-
-# dotenv environment variables file
+dist/
 .env
 .env.*
+*.log
