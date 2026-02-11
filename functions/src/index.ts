@@ -8,7 +8,4 @@ initializeApp();
 const { bitbucketToGChat } = await import("@/bitbucket-to-gchat");
 const { gchatBot } = await import("@/gchat-bot");
 
-export default {
-  bitbucketToGChat,
-  gchatBot,
-};
+export { bitbucketToGChat, gchatBot };
