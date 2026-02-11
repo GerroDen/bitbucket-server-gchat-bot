@@ -5,9 +5,10 @@
     "web"
   ],
   "scripts": {
-    "build": "yarn workspaces foreach -Ap run build",
-    "lint": "run-p 'lint:*'",
-    "lint:oxlint": "oxlint --type-aware && yarn workspaces foreach -Ap run lint",
+    "build": "yarn workspaces foreach -Api run build",
+    "deploy": "firebase deploy --only functions",
+    "lint": "run-p 'lint:*' && yarn workspaces foreach -Api run lint",
+    "lint:oxlint": "oxlint --type-aware",
     "lint:fmt": "oxfmt --check",
     "fmt": "oxfmt"
   },
