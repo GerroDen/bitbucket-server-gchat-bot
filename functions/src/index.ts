@@ -5,10 +5,10 @@ import { region } from "@/config";
 setGlobalOptions({ region });
 initializeApp();
 
-const bitbucketToGchat = await import("@/bitbucket-to-gchat");
-const gchatBot = await import("@/gchat-bot");
+const { bitbucketToGChat } = await import("@/bitbucket-to-gchat");
+const { gchatBot } = await import("@/gchat-bot");
 
 export default {
-  ...bitbucketToGchat,
-  ...gchatBot,
+  bitbucketToGChat,
+  gchatBot,
 };
