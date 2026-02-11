@@ -1,7 +1,5 @@
-import gulp from "gulp";
+import { dest, src, parallel } from "gulp";
 import svg2png from "gulp-svg2png";
-
-const { dest, src, parallel } = gulp;
 
 export async function copyPngs() {
   return src("assets/**/*.png").pipe(dest("dist/"));
