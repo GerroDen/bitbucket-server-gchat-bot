@@ -10,6 +10,8 @@
     "build": "node build.ts"
   },
   "devDependencies": {
-    "@resvg/resvg-js": "^2.6.2"
+    "@resvg/resvg-js": "^2.6.2",
+    "@tsconfig/node24": "^24.0.5",
+    "typescript": "^7.0.2"
   }
 }

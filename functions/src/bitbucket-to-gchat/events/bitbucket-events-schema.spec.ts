@@ -1,4 +1,3 @@
-import glob from "fast-glob";
 import {
   bitbucketEventSchema,
   bitbucketUserTypeSchema,
@@ -9,13 +8,14 @@ import {
 import { basename } from "path";
 import { JsonValue } from "type-fest";
 import { describe, expect, it } from "vitest";
+import { glob } from "node:fs/promises";
 
 describe("bitbucket-events-schema", () => {
-  describe("bitbucketEventSchema", () => {
-    const eventDataFiles = glob.sync("__test-data__/*.json", {
+  describe("bitbucketEventSchema", async () => {
+    const eventDataFiles = glob("__test-data__/*.json", {
       cwd: __dirname,
     });
-    for (const eventDataFile of eventDataFiles) {
+    for await (const eventDataFile of eventDataFiles) {
       it(`parses ${basename(eventDataFile)}`, async () => {
         const eventData = (await import("./" + eventDataFile)) as JsonValue;
 
