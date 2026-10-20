@@ -2,7 +2,7 @@
   "functions": {
     "predeploy": ["yarn lint", "yarn build"],
     "source": "functions",
-    "runtime": "nodejs22"
+    "runtime": "nodejs24"
   },
   "hosting": {
     "source": "web/dist"
